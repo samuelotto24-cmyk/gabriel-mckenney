@@ -39,64 +39,62 @@
   const CONFIG = {
 
     // ── Brand ────────────────────────────────────────────────────────
-    name:    'Creator Name',
-    handle:  '@creatorhandle',
-    tagline: 'Fitness · Faith · Food',
+    name:    'Gabriel McKenney',
+    handle:  '@gvmckenney',
+    tagline: 'Classic Physique · Online Coach · Built Different',
 
     // ── Colors ───────────────────────────────────────────────────────
-    // Tip: use coolors.co to generate palettes
     colors: {
-      bg:      '#FAF7F2',   // page background
-      accent:  '#B76E79',   // buttons, highlights, ornaments
-      text:    '#2D1810',   // headings and body copy
-      muted:   '#8B7B74',   // secondary text, labels
-      surface: '#FFFFFF',   // cards, nav background
-      border:  '#E8DDD7',   // dividers, card borders
+      bg:      '#08090D',   // near-black with cool tint
+      accent:  '#3B82F6',   // electric blue
+      text:    '#EEF2FF',   // off-white with blue tint
+      muted:   '#6B7A9A',   // muted steel blue
+      surface: '#111827',   // dark navy
+      border:  '#1F2D4A',   // subtle navy border
     },
 
     // ── Display Font ─────────────────────────────────────────────────
     // Options: 'cormorant' | 'playfair' | 'dm-serif' | 'libre-baskerville'
-    displayFont: 'cormorant',
+    displayFont: 'playfair',
 
     // ── Hero ─────────────────────────────────────────────────────────
     hero: {
       greetings: {
-        morning:   'Good morning — ready to reset?',
-        afternoon: "Good afternoon — let's lock in.",
-        evening:   'Good evening — time to level up.',
-        night:     "Up late? Let's get to work.",
+        morning:   'Rise and grind — the stage is earned.',
+        afternoon: "Afternoon check-in — are you locked in?",
+        evening:   'Evening session? Champions are made now.',
+        night:     "Up late? So is your competition.",
       },
     },
 
     // ── Social Links ─────────────────────────────────────────────────
     // Leave as empty string '' to hide that button entirely
     social: {
-      tiktok:        'https://tiktok.com/@handle',
-      instagram:     'https://instagram.com/handle',
-      instagram_alt: '',   // second Instagram (e.g. food page) — leave '' to hide
-      youtube:       'https://youtube.com/@handle',
-      snapchat:      '',   // leave '' to hide snap float button too
+      tiktok:        '',
+      instagram:     '',
+      instagram_alt: '',
+      youtube:       '',
+      snapchat:      '',
       twitter:       '',
       pinterest:     '',
     },
 
     // ── Quick Links (icon row below follow buttons) ───────────────────
     quickLinks: [
-      { label: 'Programs', icon: 'fa-solid fa-dumbbell', href: '#programs' },
-      { label: 'Codes',    icon: 'fa-solid fa-tag',      href: '#partners' },
-      { label: 'YouTube',  icon: 'fa-brands fa-youtube', href: '#watch'    },
-      { label: 'Contact',  icon: 'fa-solid fa-envelope', href: '#contact'  },
+      { label: 'Coaching',    icon: 'fa-solid fa-dumbbell',  href: '#programs' },
+      { label: 'Codes',       icon: 'fa-solid fa-tag',       href: '#partners' },
+      { label: 'Book a Call', icon: 'fa-solid fa-calendar',  href: '#contact'  },
     ],
 
     // ── About ─────────────────────────────────────────────────────────
     about: {
       enabled:  true,
-      headline: "Hey, I'm [Name]",
-      body:     'Two to three sentences about who this person is. Keep it warm and personal. What do they do, why do they do it, who is it for.',
+      headline: "Hey, I'm Gabriel",
+      body:     "I'm a competitive Classic Physique athlete and online coach who has dedicated years to mastering the science of building an elite physique. I competed at the OCB West Coast Nationals and have helped dozens of athletes and everyday people achieve results they never thought possible. If you want a coach who holds you accountable, teaches you the fundamentals, and delivers guaranteed results — you're in the right place.",
       stats: [
-        { value: '1M+',  label: 'Followers' },
-        { value: '500+', label: 'Students'  },
-        { value: '3',    label: 'Programs'  },
+        { value: 'OCB',    label: 'Competitor'     },
+        { value: '100%',   label: 'Accountability' },
+        { value: '1-on-1', label: 'Coaching'       },
       ],
     },
 
@@ -104,29 +102,28 @@
     programs: {
       enabled:     true,
       headline:    'Train With Me',
-      subheadline: 'Programs built for real results.',
+      subheadline: 'Elite coaching. Real results. Guaranteed.',
       items: [
         {
-          title:       'Program Name',
-          description: 'Short punchy description. What is it, who is it for, what will they get.',
-          price:       '$XX/mo',
-          badge:       'Most Popular',   // '' to hide badge
-          primaryBtn:  { text: 'Join Now',   href: '#' },
-          outlineBtn:  { text: 'Learn More', href: '#' },
+          title:       '1-on-1 Online Coaching',
+          description: 'Full custom coaching with weekly check-ins, personalized meal plans, training programs, form review, posing guidance, supplement stack, and 24/7 access. Built for athletes who are serious about competing or transforming.',
+          price:       'Book a Free Call',
+          badge:       'Full Package',
+          primaryBtn:  { text: 'Book Now',   href: 'https://calendly.com/gvmckenney/30min' },
+          outlineBtn:  { text: 'Learn More', href: '#contact' },
         },
         {
-          title:       'Second Program',
-          description: 'Short punchy description of the second offering.',
-          price:       '$XX',
+          title:       'Custom Training Plan',
+          description: 'A fully personalized training program built around your goals, schedule, and available equipment. Includes progressive overload programming, exercise demos, and a 2-week check-in.',
+          price:       'Book a Free Call',
           badge:       '',
-          primaryBtn:  { text: 'Get Access', href: '#' },
-          outlineBtn:  { text: 'Details',    href: '#' },
+          primaryBtn:  { text: 'Get Started', href: 'https://calendly.com/gvmckenney/30min' },
+          outlineBtn:  { text: 'Details',     href: '#contact' },
         },
       ],
     },
 
     // ── Photo Strip ───────────────────────────────────────────────────
-    // Add 8–12 portrait/lifestyle photos to /assets/ and list filenames here
     photoStrip: {
       enabled: true,
       photos: [
@@ -136,85 +133,83 @@
         'assets/strip-4.jpg',
         'assets/strip-5.jpg',
         'assets/strip-6.jpg',
+        'assets/strip-7.jpg',
+        'assets/strip-8.jpg',
       ],
-      speed: '18s',   // lower = faster scroll
+      speed: '20s',
     },
 
     // ── YouTube ───────────────────────────────────────────────────────
     youtube: {
-      enabled:    true,
+      enabled:    false,
       headline:   'Watch My Latest',
-      channelUrl: 'https://youtube.com/@handle',
-      videoId:    'YOUTUBE_VIDEO_ID',   // just the ID part, e.g. dQw4w9WgXcQ
+      channelUrl: '',
+      videoId:    '',
     },
 
     // ── Partner Codes ─────────────────────────────────────────────────
     partners: {
       enabled:     true,
-      headline:    'My Favorites',
-      subheadline: 'Brands I trust and actually use.',
+      headline:    'My Partners',
+      subheadline: 'Brands I use and trust. Use code GABE at checkout.',
       items: [
-        { brand: 'Brand One',   code: 'CODE10',  discount: '10% off', href: 'https://brand.com'  },
-        { brand: 'Brand Two',   code: 'CREATOR', discount: '15% off', href: 'https://brand2.com' },
-        { brand: 'Brand Three', code: 'SAVE',    discount: '20% off', href: 'https://brand3.com' },
+        { brand: 'The Flavor Gang',  code: 'GABE', discount: 'Discount applied', href: 'https://theflavorgang.com'  },
+        { brand: 'Soar Protein Bars', code: 'GABE', discount: 'Discount applied', href: 'https://soarbars.com'      },
+        { brand: 'Intelligent',      code: 'GABE', discount: 'Discount applied', href: 'https://intelligent.shop'  },
+        { brand: 'DFYNE',            code: 'GABE', discount: 'Discount applied', href: 'https://us.dfyne.com'      },
       ],
     },
 
     // ── Newsletter ────────────────────────────────────────────────────
     newsletter: {
-      enabled:              true,
+      enabled:              false,
       headline:             "Something's Coming",
       subheadline:          'Be the first to know when it drops.',
       buttonText:           'Notify Me',
       confirmText:          "You're on the list!",
-      beehiivPublicationId: '',   // from Beehiiv Settings → Publication ID
-      // Set BEEHIIV_API_KEY and BEEHIIV_PUBLICATION_ID in Vercel env vars
+      beehiivPublicationId: '',
     },
 
     // ── Support / Tips ────────────────────────────────────────────────
     support: {
-      enabled:  true,
+      enabled:  false,
       headline: 'Support My Work',
-      links: [
-        { label: 'Venmo',           href: 'https://venmo.com/u/handle', icon: 'fa-solid fa-heart'   },
-        { label: 'PayPal',          href: 'https://paypal.me/handle',   icon: 'fa-brands fa-paypal' },
-        { label: 'Amazon Wishlist', href: '#',                          icon: 'fa-brands fa-amazon' },
-      ],
+      links: [],
     },
 
     // ── Contact ───────────────────────────────────────────────────────
     contact: {
       enabled:    true,
-      headline:   'Work With Me',
-      email:      'hello@domain.com',
-      buttonText: 'Send an Email',
+      headline:   'Ready to Transform?',
+      type:       'calendly',   // 'email' | 'calendly'
+      email:      '',
+      calendly:   'https://calendly.com/gvmckenney/30min',
+      buttonText: 'Book Your Free Call',
     },
 
     // ── Social Proof Ticker ───────────────────────────────────────────
     ticker: {
       enabled: true,
       messages: [
-        '🔥 Someone from Texas just joined the program',
-        '💪 New member just unlocked the discount code',
-        '⭐ 5-star review just came in',
-        '📦 New order just placed',
+        '🏆 New athlete just started their transformation',
+        '💪 Client just hit a new personal record',
+        '📋 Custom meal plan just dropped for a new member',
+        '🔥 Competitor client just finished peak week',
+        '⭐ Another athlete checking in — results incoming',
       ],
     },
 
     // ── Open Graph ────────────────────────────────────────────────────
-    // Controls link previews on iMessage, Instagram DMs, Discord, etc.
     og: {
-      title:       'Creator Name',
-      description: 'Your tagline here.',
-      image:       'https://yourdomain.com/assets/hero.jpg',
-      url:         'https://yourdomain.com',
+      title:       'Gabriel McKenney — Classic Physique & Online Coach',
+      description: 'Competitive Classic Physique athlete and 1-on-1 online coach. Custom meal plans, training programs, weekly check-ins, and guaranteed results.',
+      image:       'https://gabrielmckenney.com/assets/hero.jpg',
+      url:         'https://gabrielmckenney.com',
     },
 
     // ── Dashboard ─────────────────────────────────────────────────────
-    // The client uses this password to log in to /dashboard
-    // Also set DASHBOARD_PASSWORD in Vercel environment variables
     dashboard: {
-      password: 'Password2024',
+      password: 'Gabriel2024',
     },
 
   };
@@ -231,18 +226,18 @@
        ============================================================ */
     :root {
       /* Fallback palette (overridden by CONFIG.colors via JS) */
-      --bg:      #FAF7F2;
-      --accent:  #B76E79;
-      --text:    #2D1810;
-      --muted:   #8B7B74;
-      --surface: #FFFFFF;
-      --border:  #E8DDD7;
+      --bg:      #08090D;
+      --accent:  #3B82F6;
+      --text:    #EEF2FF;
+      --muted:   #6B7A9A;
+      --surface: #111827;
+      --border:  #1F2D4A;
 
       /* Derived / fixed tokens */
-      --accent-dark:   #98384F;
-      --blush-light:   #F5EBE6;
-      --blush:         #EAD0C8;
-      --warm-white:    #FDF9F5;
+      --accent-dark:   #2563EB;
+      --blush-light:   #111827;
+      --blush:         #1D2842;
+      --warm-white:    #0D0D17;
 
       /* Typography */
       --display-font: 'Cormorant Garamond', serif;   /* overridden by JS */
@@ -255,9 +250,9 @@
       --py:     clamp(56px, 7vw, 88px);
 
       /* Effects */
-      --shadow-sm: 0 2px 12px rgba(45,24,16,0.07);
-      --shadow-md: 0 6px 28px rgba(45,24,16,0.12);
-      --shadow-lg: 0 12px 40px rgba(45,24,16,0.16);
+      --shadow-sm: 0 2px 12px rgba(0,0,0,0.30);
+      --shadow-md: 0 6px 28px rgba(0,0,0,0.40);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.50);
       --r-sm:  10px;
       --r-md:  18px;
       --r-lg:  28px;
@@ -479,7 +474,7 @@
       transition: box-shadow var(--ease);
     }
     #nav.scrolled {
-      box-shadow: 0 1px 0 rgba(45,24,16,0.06), 0 4px 20px rgba(45,24,16,0.07);
+      box-shadow: 0 1px 0 rgba(59,130,246,0.08), 0 4px 20px rgba(0,0,0,0.40);
     }
 
     .nav-inner {
@@ -541,7 +536,7 @@
       top: var(--nav-h); left: 0; right: 0;
       background: var(--surface);
       padding: 16px var(--px) 24px;
-      box-shadow: 0 10px 36px rgba(45,24,16,0.10);
+      box-shadow: 0 10px 36px rgba(0,0,0,0.50);
       z-index: 999;
       flex-direction: column;
     }
@@ -571,6 +566,7 @@
       padding-left: var(--px);
       padding-right: var(--px);
       background: var(--bg);
+      background-image: radial-gradient(ellipse 70% 60% at 70% 50%, rgba(59,130,246,0.07) 0%, transparent 70%);
       overflow: hidden;
     }
 
@@ -592,8 +588,9 @@
       aspect-ratio: 3 / 4;
       border-radius: var(--r-xl);
       overflow: hidden;
-      box-shadow: var(--shadow-lg);
+      box-shadow: var(--shadow-lg), 0 0 60px rgba(59,130,246,0.12), 0 0 120px rgba(59,130,246,0.06);
       background: var(--blush-light);
+      border: 1px solid rgba(59,130,246,0.15);
       will-change: transform;
     }
     .hero-photo img {
@@ -1603,6 +1600,11 @@
   r.setProperty('--surface',      CONFIG.colors.surface);
   r.setProperty('--border',       CONFIG.colors.border);
   r.setProperty('--display-font', font.family);
+  // Dark theme derived overrides
+  r.setProperty('--accent-dark',  '#2563EB');
+  r.setProperty('--blush-light',  '#111827');
+  r.setProperty('--blush',        '#1D2842');
+  r.setProperty('--warm-white',   '#0D0D17');
 
   /* ── 3. OG meta tags ──────────────────────────────────────────── */
   function setMeta(id, val) {
@@ -1931,13 +1933,26 @@
     document.getElementById('contact').classList.add('section-hidden');
   } else {
     document.getElementById('contactHeadline').textContent = CONFIG.contact.headline;
-    document.getElementById('contactEmail').textContent    = CONFIG.contact.email;
-    document.getElementById('contactEmail').href           = `mailto:${CONFIG.contact.email}`;
-    document.getElementById('contactBtn').textContent      = CONFIG.contact.buttonText;
-    document.getElementById('contactBtn').innerHTML        = `<i class="fa-solid fa-envelope"></i> ${CONFIG.contact.buttonText}`;
-    document.getElementById('contactBtn').href             = `mailto:${CONFIG.contact.email}`;
-    document.getElementById('contactBtn').classList.add('tracked');
-    document.getElementById('contactBtn').dataset.trackKey = 'email';
+    if (CONFIG.contact.type === 'calendly' && CONFIG.contact.calendly) {
+      const emailEl = document.getElementById('contactEmail');
+      emailEl.textContent = 'Book a free 30-minute discovery call.';
+      emailEl.removeAttribute('href');
+      emailEl.style.cursor = 'default';
+      const btn = document.getElementById('contactBtn');
+      btn.innerHTML = `<i class="fa-solid fa-calendar-check"></i> ${CONFIG.contact.buttonText}`;
+      btn.href = CONFIG.contact.calendly;
+      btn.target = '_blank';
+      btn.rel = 'noopener';
+      btn.classList.add('tracked');
+      btn.dataset.trackKey = 'calendly';
+    } else {
+      document.getElementById('contactEmail').textContent    = CONFIG.contact.email;
+      document.getElementById('contactEmail').href           = `mailto:${CONFIG.contact.email}`;
+      document.getElementById('contactBtn').innerHTML        = `<i class="fa-solid fa-envelope"></i> ${CONFIG.contact.buttonText}`;
+      document.getElementById('contactBtn').href             = `mailto:${CONFIG.contact.email}`;
+      document.getElementById('contactBtn').classList.add('tracked');
+      document.getElementById('contactBtn').dataset.trackKey = 'email';
+    }
   }
 
   /* ── 15. Footer ───────────────────────────────────────────────── */
