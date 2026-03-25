@@ -153,10 +153,10 @@
       headline:    'My Partners',
       subheadline: 'Brands I use and trust. Use code GABE at checkout.',
       items: [
-        { brand: 'The Flavor Gang',  code: 'GABE', discount: 'Discount applied', href: 'https://theflavorgang.com'  },
-        { brand: 'Soar Protein Bars', code: 'GABE', discount: 'Discount applied', href: 'https://soarbars.com'      },
-        { brand: 'Intelligent',      code: 'GABE', discount: 'Discount applied', href: 'https://intelligent.shop'  },
-        { brand: 'DFYNE',            code: 'GABE', discount: 'Discount applied', href: 'https://us.dfyne.com'      },
+        { brand: 'The Flavor Gang',  code: 'GABE', discount: 'Discount applied', href: 'https://theflavorgang.com', photo: 'assets/partner-flavor-gang.jpg' },
+        { brand: 'Soar Protein Bars', code: 'GABE', discount: 'Discount applied', href: 'https://soarbars.com',    photo: 'assets/partner-soar.jpg'        },
+        { brand: 'Intelligent',      code: 'GABE', discount: 'Discount applied', href: 'https://intelligent.shop', photo: 'assets/partner-intelligent.jpg' },
+        { brand: 'DFYNE',            code: 'GABE', discount: 'Discount applied', href: 'https://us.dfyne.com',     photo: 'assets/partner-dfyne.jpg'       },
       ],
     },
 
@@ -561,12 +561,12 @@
        HERO
        ============================================================ */
     #hero {
-      padding-top: calc(var(--nav-h) + clamp(36px, 6vw, 64px));
-      padding-bottom: clamp(48px, 7vw, 80px);
+      padding-top: calc(var(--nav-h) + clamp(20px, 3vw, 36px));
+      padding-bottom: clamp(24px, 4vw, 44px);
       padding-left: var(--px);
       padding-right: var(--px);
       background: var(--bg);
-      background-image: radial-gradient(ellipse 70% 60% at 70% 50%, rgba(59,130,246,0.07) 0%, transparent 70%);
+      background-image: radial-gradient(ellipse 70% 60% at 60% 50%, rgba(59,130,246,0.07) 0%, transparent 70%);
       overflow: hidden;
     }
 
@@ -575,7 +575,7 @@
       margin: 0 auto;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: clamp(36px, 6vw, 80px);
+      gap: clamp(24px, 4vw, 56px);
       align-items: center;
     }
 
@@ -583,16 +583,30 @@
       position: relative;
     }
 
+    /* Two photos side by side */
+    .hero-photo-stack {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      align-items: start;
+    }
+
     .hero-photo {
       width: 100%;
-      aspect-ratio: 3 / 4;
-      border-radius: var(--r-xl);
+      aspect-ratio: 2 / 3;
+      border-radius: var(--r-lg);
       overflow: hidden;
-      box-shadow: var(--shadow-lg), 0 0 60px rgba(59,130,246,0.12), 0 0 120px rgba(59,130,246,0.06);
+      box-shadow: var(--shadow-lg), 0 0 40px rgba(59,130,246,0.10);
       background: var(--blush-light);
       border: 1px solid rgba(59,130,246,0.15);
       will-change: transform;
     }
+
+    /* Second photo staggered down for depth */
+    .hero-photo-secondary {
+      margin-top: 36px;
+    }
+
     .hero-photo img {
       width: 100%;
       height: 100%;
@@ -970,6 +984,16 @@
     .partner-card:hover {
       box-shadow: var(--shadow-md);
       transform: translateY(-2px);
+    }
+
+    .partner-img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: calc(var(--r-md) - 4px);
+      display: block;
+      margin-bottom: 4px;
+      background: var(--bg);
     }
 
     .partner-brand {
@@ -1356,8 +1380,13 @@
 <section id="hero">
   <div class="hero-inner">
     <div class="hero-photo-wrap" id="heroPhotoWrap">
-      <div class="hero-photo" id="heroPhoto">
-        <img src="assets/hero.jpg" alt="" id="heroImg" />
+      <div class="hero-photo-stack">
+        <div class="hero-photo" id="heroPhoto">
+          <img src="assets/hero-gym.jpg" alt="" id="heroImg" />
+        </div>
+        <div class="hero-photo hero-photo-secondary" id="heroPhotoSecondary">
+          <img src="assets/hero-comp.jpg" alt="" />
+        </div>
       </div>
     </div>
 
@@ -1851,6 +1880,7 @@
       const card = document.createElement('div');
       card.className = 'partner-card fade-up';
       card.innerHTML = `
+        ${partner.photo ? `<img class="partner-img" src="${partner.photo}" alt="${partner.brand}" loading="lazy" />` : ''}
         <div class="partner-brand">${partner.brand}</div>
         <div class="partner-discount">${partner.discount}</div>
         <div class="partner-code-wrap">
@@ -2096,11 +2126,12 @@
     }, 1200);
   });
 
-  /* ── 21. Mouse parallax on hero photo ────────────────────────── */
+  /* ── 21. Mouse parallax on hero photos ───────────────────────── */
   if (window.matchMedia('(pointer: fine) and (min-width: 660px)').matches) {
     let mx = 0, my = 0;
     let cx = 0, cy = 0;
-    const heroPhotoEl = document.getElementById('heroPhoto');
+    const heroPhotoEl  = document.getElementById('heroPhoto');
+    const heroPhotoEl2 = document.getElementById('heroPhotoSecondary');
 
     document.getElementById('hero').addEventListener('mousemove', e => {
       const rect = document.getElementById('hero').getBoundingClientRect();
@@ -2111,9 +2142,8 @@
     function paralaxRAF() {
       cx += (mx - cx) * 0.06;
       cy += (my - cy) * 0.06;
-      if (heroPhotoEl) {
-        heroPhotoEl.style.transform = `translate(${cx * 12}px, ${cy * 8}px)`;
-      }
+      if (heroPhotoEl)  heroPhotoEl.style.transform  = `translate(${cx * 10}px, ${cy * 7}px)`;
+      if (heroPhotoEl2) heroPhotoEl2.style.transform = `translate(${cx * -7}px, ${cy * -5}px)`;
       requestAnimationFrame(paralaxRAF);
     }
     paralaxRAF();
