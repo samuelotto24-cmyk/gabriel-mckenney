@@ -1371,6 +1371,42 @@
       transform: scale(1.10) translateY(-2px);
       box-shadow: 0 8px 28px rgba(0,0,0,0.20);
     }
+
+    /* ── Book-a-Call animation ──────────────────── */
+    .book-ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.45);
+      transform: scale(0);
+      pointer-events: none;
+      animation: book-ripple-out 0.55s ease-out forwards;
+    }
+    @keyframes book-ripple-out {
+      to { transform: scale(4); opacity: 0; }
+    }
+
+    .book-flash-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 99998;
+      pointer-events: none;
+      background: radial-gradient(ellipse at center, rgba(59,130,246,0.18) 0%, transparent 70%);
+      opacity: 0;
+      animation: book-flash 0.65s ease-out forwards;
+    }
+    @keyframes book-flash {
+      0%   { opacity: 0; }
+      20%  { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    .btn-locked {
+      background: #16a34a !important;
+      border-color: #16a34a !important;
+      box-shadow: 0 0 28px rgba(22,163,74,0.45), 0 4px 16px rgba(0,0,0,0.35) !important;
+      transform: scale(1.04) !important;
+      transition: background 0.15s, border-color 0.15s, box-shadow 0.15s, transform 0.15s !important;
+    }
   </style>
 </head>
 <body>
@@ -2228,6 +2264,46 @@
   });
 
 })();
+
+  /* ── 23. Book-a-Call click animation ──────────────────────────── */
+  document.addEventListener('click', function(e) {
+    const btn = e.target.closest('a[href*="calendly"], .hero-cta-btn, #contactBtn');
+    if (!btn) return;
+
+    e.preventDefault();
+    const dest = btn.href;
+
+    // Ripple from click position
+    const rect = btn.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height) * 1.4;
+    const ripple = document.createElement('span');
+    ripple.className = 'book-ripple';
+    ripple.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX - rect.left - size/2}px;top:${e.clientY - rect.top - size/2}px;`;
+    btn.style.position = 'relative';
+    btn.style.overflow = 'hidden';
+    btn.appendChild(ripple);
+
+    // Full-screen flash
+    const flash = document.createElement('div');
+    flash.className = 'book-flash-overlay';
+    document.body.appendChild(flash);
+
+    // Button locked state
+    const origHTML = btn.innerHTML;
+    btn.classList.add('btn-locked');
+    btn.innerHTML = '<i class="fa-solid fa-check"></i> Locked In';
+
+    setTimeout(() => {
+      window.open(dest, '_blank', 'noopener');
+      setTimeout(() => {
+        btn.classList.remove('btn-locked');
+        btn.innerHTML = origHTML;
+        ripple.remove();
+        flash.remove();
+      }, 300);
+    }, 520);
+  }, true);
+
 </script>
 
 </body>
