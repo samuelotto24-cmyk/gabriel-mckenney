@@ -36,10 +36,10 @@ export default async function handler(req) {
 
   try {
     const results = await redis([
-      ['HGETALL', 'stats:pageviews'],
-      ['HGETALL', 'stats:referrers'],
-      ['HGETALL', 'stats:countries'],
-      ['HGETALL', 'stats:clicks'],
+      ['HGETALL', 'gabriel:pageviews'],
+      ['HGETALL', 'gabriel:referrers'],
+      ['HGETALL', 'gabriel:countries'],
+      ['HGETALL', 'gabriel:clicks'],
     ]);
 
     return new Response(JSON.stringify({

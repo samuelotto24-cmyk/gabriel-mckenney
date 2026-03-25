@@ -59,13 +59,13 @@ export default async function handler(req) {
     const cmds = [];
 
     if (type === 'pageview') {
-      cmds.push(['HINCRBY', 'stats:pageviews', today, '1']);
-      cmds.push(['HINCRBY', 'stats:countries', country, '1']);
+      cmds.push(['HINCRBY', 'gabriel:pageviews', today, '1']);
+      cmds.push(['HINCRBY', 'gabriel:countries', country, '1']);
       const source = parseReferrer(referrer);
-      if (source) cmds.push(['HINCRBY', 'stats:referrers', source, '1']);
-      else        cmds.push(['HINCRBY', 'stats:referrers', 'Direct', '1']);
+      if (source) cmds.push(['HINCRBY', 'gabriel:referrers', source, '1']);
+      else        cmds.push(['HINCRBY', 'gabriel:referrers', 'Direct', '1']);
     } else if (type === 'click' && link) {
-      cmds.push(['HINCRBY', 'stats:clicks', link, '1']);
+      cmds.push(['HINCRBY', 'gabriel:clicks', link, '1']);
     }
 
     if (cmds.length) await redis(cmds);
