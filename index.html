@@ -21,6 +21,8 @@
   <!-- GSAP + ScrollTrigger -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <!-- Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
   <script>
     /* Prevent flash of un-styled content and browser scroll-jump on hash */
@@ -39,16 +41,16 @@
   const CONFIG = {
 
     // ── Brand ────────────────────────────────────────────────────────
-    name:    'Gabriel McKenney',
-    handle:  '@gvmckenney',
-    tagline: 'Classic Physique · Online Coach · Built Different',
+    name:    'Gabe McKenney',
+    handle:  '@gabemckenney_',
+    tagline: 'Classic Physique · Team Peak Natty · Online Coach',
 
     // ── Colors ───────────────────────────────────────────────────────
     colors: {
       bg:      '#08090D',   // near-black with cool tint
       accent:  '#3B82F6',   // electric blue
       text:    '#EEF2FF',   // off-white with blue tint
-      muted:   '#6B7A9A',   // muted steel blue
+      muted:   '#8FA5C8',   // muted steel blue — readable on dark bg
       surface: '#111827',   // dark navy
       border:  '#1F2D4A',   // subtle navy border
     },
@@ -70,7 +72,7 @@
     // ── Social Links ─────────────────────────────────────────────────
     // Leave as empty string '' to hide that button entirely
     social: {
-      tiktok:        'https://tiktok.com/@gabemcktreney',
+      tiktok:        'https://tiktok.com/@gabemckenney',
       instagram:     'https://instagram.com/gabemckenney_',
       instagram_alt: '',
       youtube:       '',
@@ -89,12 +91,12 @@
     // ── About ─────────────────────────────────────────────────────────
     about: {
       enabled:  true,
-      headline: "Hey, I'm Gabriel",
-      body:     "I'm a competitive Classic Physique athlete and online coach who has dedicated years to mastering the science of building an elite physique. I competed at the OCB West Coast Nationals and have helped dozens of athletes and everyday people achieve results they never thought possible. If you want a coach who holds you accountable, teaches you the fundamentals, and delivers guaranteed results — you're in the right place.",
+      headline: "Hey, I'm Gabe",
+      body:     "I'm a competitive Classic Physique athlete, Team Peak Natty member, and online coach who has dedicated years to mastering the science of building an elite physique. I competed at the OCB West Coast Nationals and have helped dozens of athletes and everyday people achieve results they never thought possible. If you want a coach who holds you accountable, teaches you the fundamentals, and delivers guaranteed results — you're in the right place.",
       stats: [
-        { value: 'OCB',    label: 'Competitor'     },
-        { value: '100%',   label: 'Accountability' },
-        { value: '1-on-1', label: 'Coaching'       },
+        { value: 'OCB',        label: 'Competitor'    },
+        { value: 'Peak Natty', label: 'Team'          },
+        { value: '1-on-1',     label: 'Coaching'      },
       ],
     },
 
@@ -201,7 +203,7 @@
 
     // ── Open Graph ────────────────────────────────────────────────────
     og: {
-      title:       'Gabriel McKenney — Classic Physique & Online Coach',
+      title:       'Gabe McKenney — Classic Physique & Online Coach',
       description: 'Competitive Classic Physique athlete and 1-on-1 online coach. Custom meal plans, training programs, weekly check-ins, and guaranteed results.',
       image:       'https://gabrielmckenney.com/assets/hero.jpg',
       url:         'https://gabrielmckenney.com',
@@ -332,7 +334,8 @@
 
     .section-sub {
       font-size: 15px;
-      color: var(--muted);
+      color: var(--text);
+      opacity: 0.72;
       margin-bottom: 40px;
     }
 
@@ -388,6 +391,19 @@
       transform: translateY(-2px);
       box-shadow: 0 8px 22px rgba(0,0,0,0.20);
       color: #fff;
+    }
+
+    /* Hero booking CTA — larger, glowing */
+    .hero-cta-btn {
+      padding: 16px 38px;
+      font-size: 15px;
+      letter-spacing: 0.04em;
+      box-shadow: 0 0 28px rgba(59,130,246,0.40), 0 4px 16px rgba(0,0,0,0.35);
+      align-self: flex-start;
+    }
+    .hero-cta-btn:hover {
+      box-shadow: 0 0 44px rgba(59,130,246,0.60), 0 6px 24px rgba(0,0,0,0.45);
+      transform: translateY(-3px);
     }
 
     .btn-outline {
@@ -735,25 +751,30 @@
     /* ============================================================
        ABOUT
        ============================================================ */
-    #about { background: var(--surface); }
+    #about {
+      background: var(--surface);
+      padding-top: clamp(28px, 4vw, 48px);
+      padding-bottom: clamp(28px, 4vw, 48px);
+    }
 
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: clamp(36px, 6vw, 72px);
+      gap: clamp(28px, 4vw, 52px);
       align-items: center;
     }
 
-    .about-text .section-title { margin-bottom: 16px; }
+    .about-text .section-title { margin-bottom: 12px; }
     .about-text p {
-      font-size: 16px;
-      line-height: 1.8;
+      font-size: 14px;
+      line-height: 1.75;
       color: var(--text);
+      opacity: 0.88;
     }
 
     .about-photo {
       aspect-ratio: 1 / 1;
-      max-width: 320px;
+      max-width: 240px;
       width: 100%;
       justify-self: center;
       border-radius: var(--r-lg);
@@ -866,7 +887,8 @@
     .program-desc {
       font-size: 15px;
       line-height: 1.7;
-      color: var(--muted);
+      color: var(--text);
+      opacity: 0.82;
       margin-bottom: 20px;
     }
 
@@ -907,7 +929,7 @@
       width: max-content;
       animation: stripScroll var(--strip-speed, 18s) linear infinite;
     }
-    .strip-track:hover { animation-play-state: paused; }
+    /* strip never pauses on hover */
 
     @keyframes stripScroll {
       from { transform: translateX(0); }
@@ -982,8 +1004,13 @@
       cursor: pointer;
     }
     .partner-card:hover {
-      box-shadow: var(--shadow-md);
-      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(59,130,246,0.18), var(--shadow-md);
+      transform: translateY(-4px);
+      border-color: rgba(59,130,246,0.45);
+    }
+    .partner-card:hover .partner-img {
+      transform: scale(1.04);
+      filter: brightness(1.07);
     }
 
     .partner-img {
@@ -995,6 +1022,7 @@
       display: block;
       margin-bottom: 4px;
       background: var(--bg);
+      transition: transform 0.4s ease, filter 0.4s ease;
     }
 
     .partner-brand {
@@ -1396,6 +1424,11 @@
       <h1 class="hero-name" id="heroName">Creator Name</h1>
       <div class="hero-ornament"></div>
       <p class="hero-tagline" id="heroTagline">Fitness · Faith · Food</p>
+
+      <!-- Primary booking CTA -->
+      <a href="https://calendly.com/gvmckenney/30min" class="btn-primary hero-cta-btn tracked" data-track-key="hero_book" target="_blank" rel="noopener">
+        <i class="fa-solid fa-calendar-check"></i> Book Your Free Call
+      </a>
 
       <!-- Social follow buttons — injected by JS -->
       <div class="follow-row" id="followRow"></div>
@@ -1890,7 +1923,7 @@
         </div>
         <a href="${partner.href}" class="partner-link tracked" data-track-key="partner_${partner.brand.toLowerCase().replace(/\s+/g,'_')}" target="_blank" rel="noopener">Shop ${partner.brand} →</a>`;
 
-      // Copy-to-clipboard
+      // Copy-to-clipboard + confetti
       card.addEventListener('click', () => {
         navigator.clipboard.writeText(partner.code).then(() => {
           showToast(`"${partner.code}" copied!`);
@@ -1898,6 +1931,22 @@
           const prev = copyEl.innerHTML;
           copyEl.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
           setTimeout(() => { copyEl.innerHTML = prev; }, 2000);
+          // Confetti burst
+          if (typeof confetti === 'function') {
+            const rect = card.getBoundingClientRect();
+            confetti({
+              particleCount: 90,
+              spread: 65,
+              origin: {
+                x: (rect.left + rect.width / 2) / window.innerWidth,
+                y: (rect.top  + rect.height / 2) / window.innerHeight,
+              },
+              colors: ['#3B82F6', '#60A5FA', '#93C5FD', '#EEF2FF', '#ffffff'],
+              startVelocity: 28,
+              gravity: 0.9,
+              scalar: 0.85,
+            });
+          }
         }).catch(() => {});
       });
       grid.appendChild(card);
