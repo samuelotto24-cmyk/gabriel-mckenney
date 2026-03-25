@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Analytics — CLIENT_NAME</title>
+  <title>Analytics — Gabe McKenney</title>
   <meta name="robots" content="noindex,nofollow" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
@@ -18,25 +18,25 @@
     // ── Client config ──────────────────────────────────────────────
     // Change these two values for each new client deployment.
     const CLIENT = {
-      name:   'Client Name',    // shown in header + login screen
-      accent: '#B76E79',        // rose/brand color for the dashboard
+      name:   'Gabe McKenney', // shown in header + login screen
+      accent: '#3B82F6',       // brand color for the dashboard
     };
     // ──────────────────────────────────────────────────────────────
   </script>
 
   <style>
     :root {
-      --cream:      #FAF7F2;
-      --warm-white: #FDF9F5;
-      --blush:      #EAD0C8;
-      --rose:       #B76E79;
-      --rose-pale:  rgba(183,110,121,0.10);
-      --espresso:   #2D1810;
-      --muted:      #8B7B74;
-      --border:     #E8DDD7;
-      --card:       #FFFFFF;
-      --shadow:     0 1px 3px rgba(45,24,16,0.05), 0 4px 20px rgba(45,24,16,0.06);
-      --shadow-hover: 0 4px 8px rgba(45,24,16,0.08), 0 12px 32px rgba(45,24,16,0.10);
+      --cream:      #08090D;
+      --warm-white: #0D1117;
+      --blush:      #1F2D4A;
+      --rose:       #3B82F6;
+      --rose-pale:  rgba(59,130,246,0.10);
+      --espresso:   #EEF2FF;
+      --muted:      #8FA5C8;
+      --border:     #1F2D4A;
+      --card:       #111827;
+      --shadow:     0 1px 3px rgba(0,0,0,0.20), 0 4px 20px rgba(0,0,0,0.25);
+      --shadow-hover: 0 4px 8px rgba(0,0,0,0.30), 0 12px 32px rgba(0,0,0,0.40);
       --radius:     14px;
     }
 
@@ -44,7 +44,7 @@
 
     body {
       font-family: 'DM Sans', sans-serif;
-      background: linear-gradient(160deg, #F5EBE6 0%, #FAF7F2 30%, #FAF7F2 100%);
+      background: #08090D;
       color: var(--espresso);
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
@@ -57,7 +57,7 @@
       justify-content: center;
       min-height: 100vh;
       padding: 24px;
-      background: radial-gradient(ellipse at 50% 30%, #F0E0D8 0%, #FAF7F2 70%);
+      background: radial-gradient(ellipse at 50% 30%, #0D1D3A 0%, #08090D 70%);
     }
 
     .login-card {
@@ -80,11 +80,12 @@
     }
 
     .login-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 38px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 44px;
       font-weight: 400;
       color: var(--espresso);
-      letter-spacing: 0.02em;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       margin-bottom: 4px;
     }
 
@@ -112,13 +113,13 @@
       letter-spacing: 0.08em;
     }
     .login-input::placeholder { letter-spacing: 0.04em; color: var(--muted); }
-    .login-input:focus { border-color: var(--rose); }
+    .login-input:focus { border-color: var(--rose); background: #0D1D3A; }
 
     .login-btn {
       width: 100%;
       padding: 13px;
-      background: var(--espresso);
-      color: #FDF9F5;
+      background: #3B82F6;
+      color: #fff;
       border: none;
       border-radius: 8px;
       font-family: 'DM Sans', sans-serif;
@@ -143,16 +144,17 @@
 
     /* Dark editorial header — full width */
     .dash-header-bar {
-      background: #1A0F0B;
+      background: #060A10;
       position: relative;
       overflow: hidden;
       width: 100%;
+      border-bottom: 1px solid #1F2D4A;
     }
     .dash-header-bar::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse at 100% 0%, rgba(183,110,121,0.15) 0%, transparent 60%);
+      background: radial-gradient(ellipse at 100% 0%, rgba(59,130,246,0.12) 0%, transparent 60%);
       pointer-events: none;
     }
     .dash-header-inner {
@@ -167,25 +169,26 @@
       z-index: 1;
     }
     .dash-brand {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 36px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 40px;
       font-weight: 400;
-      color: var(--cream);
-      letter-spacing: 0.03em;
+      color: #EEF2FF;
+      letter-spacing: 0.08em;
       line-height: 1;
       margin-bottom: 8px;
+      text-transform: uppercase;
     }
     .dash-brand-line {
       width: 40px;
       height: 1px;
-      background: #B76E79;
+      background: #3B82F6;
       margin-bottom: 8px;
     }
     .dash-brand-sub {
       font-size: 11px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: #8B7B74;
+      color: #8FA5C8;
     }
     .dash-updated {
       font-size: 12px;
@@ -239,11 +242,12 @@
     }
 
     .s-value {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Bebas Neue', sans-serif;
       font-size: 44px;
       font-weight: 400;
       line-height: 1;
       color: var(--espresso);
+      letter-spacing: 0.04em;
     }
 
     .s-value.s-text {
@@ -279,18 +283,19 @@
       gap: 12px;
     }
     .card-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Bebas Neue', sans-serif;
       font-size: 20px;
-      font-weight: 500;
+      font-weight: 400;
       color: var(--espresso);
+      letter-spacing: 0.06em;
     }
     .card-title-badge {
       font-size: 11px;
       font-family: 'DM Sans', sans-serif;
       font-weight: 500;
       color: var(--rose);
-      background: rgba(183,110,121,0.1);
-      border: 1px solid rgba(183,110,121,0.2);
+      background: rgba(59,130,246,0.1);
+      border: 1px solid rgba(59,130,246,0.2);
       border-radius: 20px;
       padding: 3px 10px;
       white-space: nowrap;
@@ -388,10 +393,11 @@
       pointer-events: none;
     }
     .donut-center-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 26px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
       font-weight: 400;
       color: var(--espresso);
+      letter-spacing: 0.04em;
       line-height: 1;
     }
     .donut-center-label {
@@ -441,7 +447,7 @@
       100% { background-position: 600px 0; }
     }
     .skeleton {
-      background: linear-gradient(90deg, #f0e8e3 25%, #faf7f2 50%, #f0e8e3 75%);
+      background: linear-gradient(90deg, #111827 25%, #1F2D4A 50%, #111827 75%);
       background-size: 600px 100%;
       animation: shimmer 1.6s infinite linear;
       border-radius: 6px;
@@ -469,8 +475,8 @@
 
     /* ── Map ────────────────────────────────────── */
     .map-card {
-      background: #1A0F0B;
-      border: 1px solid rgba(183,110,121,0.18);
+      background: #060A10;
+      border: 1px solid rgba(59,130,246,0.18);
       border-radius: var(--radius);
       padding: 26px 28px;
       box-shadow: 0 4px 32px rgba(0,0,0,0.18);
@@ -483,11 +489,11 @@
       position: absolute;
       top: -60px; right: -60px;
       width: 220px; height: 220px;
-      background: radial-gradient(ellipse, rgba(183,110,121,0.18) 0%, transparent 70%);
+      background: radial-gradient(ellipse, rgba(59,130,246,0.15) 0%, transparent 70%);
       pointer-events: none;
     }
-    .map-card .card-title { color: #FDF9F5; }
-    .map-card .card-title-badge { background: rgba(183,110,121,0.2); color: #D4A0A8; }
+    .map-card .card-title { color: #EEF2FF; }
+    .map-card .card-title-badge { background: rgba(59,130,246,0.2); color: #93C5FD; }
 
     #worldMap {
       width: 100%;
@@ -499,13 +505,13 @@
       stroke-width: 0.4;
     }
     .map-country.has-data {
-      fill: rgba(183,110,121,0.10);
-      stroke: rgba(183,110,121,0.25);
+      fill: rgba(59,130,246,0.12);
+      stroke: rgba(59,130,246,0.30);
     }
     .map-dot {
-      fill: #B76E79;
+      fill: #3B82F6;
       opacity: 0.9;
-      filter: drop-shadow(0 0 4px rgba(183,110,121,0.7));
+      filter: drop-shadow(0 0 4px rgba(59,130,246,0.7));
     }
     @keyframes pulse-map {
       0%   { r: var(--pr); opacity: 0.55; }
@@ -513,20 +519,20 @@
     }
     .map-pulse {
       fill: none;
-      stroke: #B76E79;
+      stroke: #3B82F6;
       stroke-width: 1;
       opacity: 0;
       animation: pulse-map 2.4s ease-out infinite;
     }
     .map-tooltip {
       position: absolute;
-      background: rgba(26,15,11,0.92);
-      border: 1px solid rgba(183,110,121,0.35);
+      background: rgba(6,10,16,0.95);
+      border: 1px solid rgba(59,130,246,0.35);
       border-radius: 8px;
       padding: 8px 14px;
       font-family: 'DM Sans', sans-serif;
       font-size: 12px;
-      color: #FDF9F5;
+      color: #EEF2FF;
       pointer-events: none;
       opacity: 0;
       transition: opacity 0.15s;
@@ -537,7 +543,7 @@
       display: block;
       font-size: 13px;
       margin-bottom: 2px;
-      color: #D4A0A8;
+      color: #93C5FD;
     }
 
     /* ── Footer ─────────────────────────────────── */
@@ -711,7 +717,7 @@
   document.title = `Analytics — ${CLIENT.name}`;
 
   /* Apply accent color if custom */
-  if (CLIENT.accent && CLIENT.accent !== '#B76E79') {
+  if (CLIENT.accent) {
     document.documentElement.style.setProperty('--rose', CLIENT.accent);
   }
 
@@ -724,12 +730,12 @@
     snapchat:        { label: 'Snapchat',          icon: 'fa-brands fa-snapchat',  color: '#FFFC00', iconColor: '#000' },
     twitter:         { label: 'Twitter/X',         icon: 'fa-brands fa-x-twitter', color: '#000000' },
     pinterest:       { label: 'Pinterest',         icon: 'fa-brands fa-pinterest', color: '#E60023' },
-    program_primary: { label: 'Program — Join Now',icon: 'fa-solid fa-dumbbell',   color: '#B76E79' },
-    program_outline: { label: 'Program — Details', icon: 'fa-solid fa-dumbbell',   color: '#C9888F' },
+    program_primary: { label: 'Program — Join Now',icon: 'fa-solid fa-dumbbell',   color: '#3B82F6' },
+    program_outline: { label: 'Program — Details', icon: 'fa-solid fa-dumbbell',   color: '#60A5FA' },
     venmo:           { label: 'Venmo',             icon: 'fa-solid fa-heart',      color: '#008CFF' },
     paypal:          { label: 'PayPal',            icon: 'fa-brands fa-paypal',    color: '#003087' },
     amazon_wishlist: { label: 'Amazon Wishlist',   icon: 'fa-brands fa-amazon',    color: '#FF9900' },
-    email:           { label: 'Email',             icon: 'fa-solid fa-envelope',   color: '#B76E79' },
+    email:           { label: 'Email',             icon: 'fa-solid fa-envelope',   color: '#3B82F6' },
   };
 
   const CLICK_LABELS = {};
@@ -1002,8 +1008,8 @@
 
     const pvCtx = document.getElementById('pvChart').getContext('2d');
     const grad = pvCtx.createLinearGradient(0, 0, 0, 220);
-    grad.addColorStop(0, 'rgba(183,110,121,0.25)');
-    grad.addColorStop(1, 'rgba(183,110,121,0)');
+    grad.addColorStop(0, 'rgba(59,130,246,0.25)');
+    grad.addColorStop(1, 'rgba(59,130,246,0)');
 
     new Chart(pvCtx, {
       type: 'line',
@@ -1014,14 +1020,14 @@
         }),
         datasets: [{
           data: pvByDay,
-          borderColor: '#B76E79',
+          borderColor: '#3B82F6',
           backgroundColor: grad,
           borderWidth: 2,
           fill: true,
           tension: 0.4,
           pointRadius: 0,
           pointHoverRadius: 5,
-          pointHoverBackgroundColor: '#B76E79',
+          pointHoverBackgroundColor: '#3B82F6',
           pointHoverBorderColor: '#fff',
           pointHoverBorderWidth: 2,
         }],
@@ -1033,9 +1039,13 @@
         plugins: {
           legend: { display: false },
           tooltip: {
-            backgroundColor: '#2D1810',
+            backgroundColor: '#0D1117',
+            borderColor: '#1F2D4A',
+            borderWidth: 1,
             titleFont: { family: 'DM Sans', size: 11 },
             bodyFont: { family: 'DM Sans', size: 13 },
+            titleColor: '#8FA5C8',
+            bodyColor: '#EEF2FF',
             padding: 10,
             callbacks: { label: ctx => `  ${fmt(ctx.parsed.y)} pageviews` },
           },
@@ -1046,17 +1056,17 @@
             border: { display: false },
             ticks: {
               font: { family: 'DM Sans', size: 11 },
-              color: '#8B7B74',
+              color: '#8FA5C8',
               maxTicksLimit: 7,
               maxRotation: 0,
             },
           },
           y: {
-            grid: { color: 'rgba(45,24,16,0.04)', drawBorder: false },
+            grid: { color: 'rgba(31,45,74,0.6)', drawBorder: false },
             border: { display: false, dash: [4, 4] },
             ticks: {
               font: { family: 'DM Sans', size: 11 },
-              color: '#8B7B74',
+              color: '#8FA5C8',
               maxTicksLimit: 5,
             },
             beginAtZero: true,
@@ -1076,7 +1086,7 @@
   }
 
   /* ── Doughnut for sources ───────────────────── */
-  const DONUT_COLORS = ['#B76E79','#C9888F','#D9A5A9','#8B5E65','#E8C4C7','#6B4449','#F0D8D9','#4A2D30'];
+  const DONUT_COLORS = ['#3B82F6','#60A5FA','#93C5FD','#2563EB','#1D4ED8','#BFDBFE','#7DD3FC','#0EA5E9'];
 
   function renderDoughnut(id, data, limit) {
     const el = document.getElementById(id);
@@ -1117,7 +1127,11 @@
         plugins: {
           legend: { display: false },
           tooltip: {
-            backgroundColor: '#2D1810',
+            backgroundColor: '#0D1117',
+            borderColor: '#1F2D4A',
+            borderWidth: 1,
+            titleColor: '#8FA5C8',
+            bodyColor: '#EEF2FF',
             titleFont: { family: 'DM Sans', size: 11 },
             bodyFont: { family: 'DM Sans', size: 12 },
             padding: 8,
@@ -1196,8 +1210,8 @@
       } else {
         return `
           <div class="click-row">
-            <div class="platform-icon" style="background:rgba(183,110,121,0.12)">
-              <i class="fa-solid fa-link" style="color:#B76E79; font-size:11px"></i>
+            <div class="platform-icon" style="background:rgba(59,130,246,0.12)">
+              <i class="fa-solid fa-link" style="color:#3B82F6; font-size:11px"></i>
             </div>
             <div class="bar-name" title="${label}">${label}</div>
             <div class="bar-track">
