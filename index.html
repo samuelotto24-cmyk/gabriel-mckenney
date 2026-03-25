@@ -57,7 +57,7 @@
 
     // ── Display Font ─────────────────────────────────────────────────
     // Options: 'cormorant' | 'playfair' | 'dm-serif' | 'libre-baskerville'
-    displayFont: 'playfair',
+    displayFont: 'bebas',
 
     // ── Hero ─────────────────────────────────────────────────────────
     hero: {
@@ -647,11 +647,12 @@
 
     .hero-name {
       font-family: var(--display-font);
-      font-size: clamp(48px, 7vw, 88px);
+      font-size: clamp(52px, 8vw, 104px);
       font-weight: 400;
       color: var(--text);
-      letter-spacing: -0.02em;
-      line-height: 0.95;
+      letter-spacing: 0.06em;
+      line-height: 0.92;
+      text-transform: uppercase;
     }
 
     .hero-ornament {
@@ -672,10 +673,11 @@
 
     .hero-tagline {
       font-family: var(--display-font);
-      font-size: clamp(16px, 2vw, 22px);
-      font-style: italic;
+      font-size: clamp(14px, 1.8vw, 20px);
+      font-style: normal;
       color: var(--muted);
-      letter-spacing: 0.1em;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
     }
 
     /* Follow buttons */
@@ -1632,6 +1634,8 @@
     'playfair':            { family: "'Playfair Display', serif",   url: "Playfair+Display:ital,wght@0,400;0,500;0,600;1,400" },
     'dm-serif':            { family: "'DM Serif Display', serif",   url: "DM+Serif+Display:ital@0;1" },
     'libre-baskerville':   { family: "'Libre Baskerville', serif",  url: "Libre+Baskerville:ital,wght@0,400;0,700;1,400" },
+    'bebas':               { family: "'Bebas Neue', sans-serif",    url: "Bebas+Neue" },
+    'oswald':              { family: "'Oswald', sans-serif",        url: "Oswald:wght@400;500;600;700" },
   };
 
   const fontKey = CONFIG.displayFont || 'cormorant';
