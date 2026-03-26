@@ -2,7 +2,7 @@ export const config = { runtime: 'edge' };
 
 const REDIS_URL   = process.env.UPSTASH_REDIS_REST_URL;
 const REDIS_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN;
-const PASSWORD    = process.env.DASHBOARD_PASSWORD || 'Password2024';
+const PASSWORD    = process.env.DASHBOARD_PASSWORD || 'Gabriel2024';
 
 async function redis(commands) {
   const res = await fetch(`${REDIS_URL}/pipeline`, {
@@ -40,13 +40,35 @@ export default async function handler(req) {
       ['HGETALL', 'gabriel:referrers'],
       ['HGETALL', 'gabriel:countries'],
       ['HGETALL', 'gabriel:clicks'],
+      ['HGETALL', 'gabriel:hourly'],
+      ['HGETALL', 'gabriel:devices'],
+      ['HGETALL', 'gabriel:browsers'],
+      ['HGETALL', 'gabriel:os'],
+      ['HGETALL', 'gabriel:cities'],
+      ['HGETALL', 'gabriel:languages'],
+      ['HGETALL', 'gabriel:visitors'],
+      ['HGETALL', 'gabriel:scroll'],
+      ['HGETALL', 'gabriel:duration'],
+      ['HGETALL', 'gabriel:duration_count'],
+      ['HGETALL', 'gabriel:conversions'],
     ]);
 
     return new Response(JSON.stringify({
-      pageviews: parseHash(results[0]),
-      referrers: parseHash(results[1]),
-      countries: parseHash(results[2]),
-      clicks:    parseHash(results[3]),
+      pageviews:      parseHash(results[0]),
+      referrers:      parseHash(results[1]),
+      countries:      parseHash(results[2]),
+      clicks:         parseHash(results[3]),
+      hourly:         parseHash(results[4]),
+      devices:        parseHash(results[5]),
+      browsers:       parseHash(results[6]),
+      os:             parseHash(results[7]),
+      cities:         parseHash(results[8]),
+      languages:      parseHash(results[9]),
+      visitors:       parseHash(results[10]),
+      scroll:         parseHash(results[11]),
+      duration:       parseHash(results[12]),
+      duration_count: parseHash(results[13]),
+      conversions:    parseHash(results[14]),
     }), {
       headers: { 'Content-Type': 'application/json' },
     });
