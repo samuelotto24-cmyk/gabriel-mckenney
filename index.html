@@ -48,7 +48,7 @@
     // ── Colors ───────────────────────────────────────────────────────
     colors: {
       bg:      '#08090D',   // near-black with cool tint
-      accent:  '#3B82F6',   // electric blue
+      accent:  '#4F9EFF',   // vivid electric blue
       text:    '#EEF2FF',   // off-white with blue tint
       muted:   '#8FA5C8',   // muted steel blue — readable on dark bg
       surface: '#111827',   // dark navy
@@ -229,7 +229,7 @@
     :root {
       /* Fallback palette (overridden by CONFIG.colors via JS) */
       --bg:      #08090D;
-      --accent:  #3B82F6;
+      --accent:  #4F9EFF;
       --text:    #EEF2FF;
       --muted:   #6B7A9A;
       --surface: #111827;
@@ -771,47 +771,67 @@
     .hero-orb {
       position: absolute;
       border-radius: 50%;
-      filter: blur(100px);
       will-change: transform;
       pointer-events: none;
     }
+    /* Orb 1 — large vivid blue, top-right */
     .hero-orb-1 {
-      width: clamp(300px, 56vw, 680px);
-      height: clamp(300px, 56vw, 680px);
-      background: radial-gradient(circle, rgba(59,130,246,0.22) 0%, transparent 68%);
-      top: -12%; right: -10%;
-      animation: orbDrift1 14s ease-in-out infinite;
+      width: clamp(400px, 72vw, 900px);
+      height: clamp(400px, 72vw, 900px);
+      background: radial-gradient(circle, rgba(79,158,255,0.60) 0%, rgba(59,130,246,0.28) 40%, transparent 70%);
+      filter: blur(48px);
+      top: -18%; right: -14%;
+      animation: orbDrift1 12s ease-in-out infinite;
     }
+    /* Orb 2 — medium indigo, bottom-left */
     .hero-orb-2 {
-      width: clamp(240px, 44vw, 530px);
-      height: clamp(240px, 44vw, 530px);
-      background: radial-gradient(circle, rgba(79,70,229,0.15) 0%, transparent 70%);
-      bottom: -16%; left: 2%;
-      animation: orbDrift2 19s ease-in-out infinite;
+      width: clamp(320px, 56vw, 680px);
+      height: clamp(320px, 56vw, 680px);
+      background: radial-gradient(circle, rgba(99,102,241,0.55) 0%, rgba(79,158,255,0.22) 50%, transparent 72%);
+      filter: blur(56px);
+      bottom: -14%; left: -4%;
+      animation: orbDrift2 16s ease-in-out infinite;
     }
+    /* Orb 3 — accent blue, center */
     .hero-orb-3 {
-      width: clamp(180px, 30vw, 370px);
-      height: clamp(180px, 30vw, 370px);
-      background: radial-gradient(circle, rgba(59,130,246,0.10) 0%, transparent 70%);
-      top: 28%; left: 36%;
-      animation: orbDrift3 24s ease-in-out infinite;
+      width: clamp(220px, 36vw, 480px);
+      height: clamp(220px, 36vw, 480px);
+      background: radial-gradient(circle, rgba(79,158,255,0.45) 0%, transparent 68%);
+      filter: blur(40px);
+      top: 22%; left: 32%;
+      animation: orbDrift3 20s ease-in-out infinite;
+    }
+    /* Orb 4 — subtle warm accent, mid-right */
+    .hero-orb-4 {
+      width: clamp(160px, 24vw, 320px);
+      height: clamp(160px, 24vw, 320px);
+      background: radial-gradient(circle, rgba(139,92,246,0.40) 0%, transparent 70%);
+      filter: blur(36px);
+      top: 50%; right: 8%;
+      animation: orbDrift4 18s ease-in-out infinite;
+      animation-delay: 3s;
     }
     @keyframes orbDrift1 {
-      0%,100% { transform: translate(  0px,   0px) scale(1.00); }
-      25%      { transform: translate(-52px,  42px) scale(1.09); }
-      50%      { transform: translate(-26px, -62px) scale(0.94); }
-      75%      { transform: translate( 36px, -16px) scale(1.05); }
+      0%,100% { transform: translate(  0px,   0px) scale(1.00); opacity: 0.85; }
+      25%      { transform: translate(-72px,  56px) scale(1.14); opacity: 1.00; }
+      50%      { transform: translate(-36px, -80px) scale(0.92); opacity: 0.70; }
+      75%      { transform: translate( 50px, -22px) scale(1.08); opacity: 0.95; }
     }
     @keyframes orbDrift2 {
-      0%,100% { transform: translate(  0px,  0px) scale(1.00); }
-      30%      { transform: translate( 72px,-56px) scale(1.14); }
-      65%      { transform: translate(-36px, 32px) scale(0.91); }
-      80%      { transform: translate( 18px, 56px) scale(1.07); }
+      0%,100% { transform: translate(  0px,  0px) scale(1.00); opacity: 0.80; }
+      30%      { transform: translate( 90px,-72px) scale(1.18); opacity: 1.00; }
+      65%      { transform: translate(-48px, 42px) scale(0.88); opacity: 0.65; }
+      80%      { transform: translate( 22px, 70px) scale(1.10); opacity: 0.90; }
     }
     @keyframes orbDrift3 {
-      0%,100% { transform: translate(  0px,  0px); opacity: 0.60; }
-      40%      { transform: translate(-72px, 56px); opacity: 1.00; }
-      70%      { transform: translate( 52px,-40px); opacity: 0.44; }
+      0%,100% { transform: translate(  0px,  0px); opacity: 0.70; }
+      40%      { transform: translate(-90px, 70px); opacity: 1.00; }
+      70%      { transform: translate( 68px,-52px); opacity: 0.50; }
+    }
+    @keyframes orbDrift4 {
+      0%,100% { transform: translate(  0px,  0px); opacity: 0.55; }
+      45%      { transform: translate(-40px,-60px); opacity: 0.90; }
+      75%      { transform: translate( 50px, 30px); opacity: 0.40; }
     }
 
     /* ── Glowing edge lines ──────────────────────────────────── */
@@ -821,43 +841,44 @@
       content: '';
       position: absolute;
       bottom: 0; left: 0; right: 0;
-      height: 1px;
+      height: 2px;
       background: linear-gradient(90deg,
         transparent 0%,
-        rgba(59,130,246,0.45) 20%,
-        rgba(99,102,241,0.90) 50%,
-        rgba(59,130,246,0.45) 80%,
+        rgba(79,158,255,0.55) 15%,
+        rgba(79,158,255,1.00) 50%,
+        rgba(79,158,255,0.55) 85%,
         transparent 100%
       );
-      animation: navLineGlow 5s ease-in-out infinite alternate;
+      animation: navLineGlow 4s ease-in-out infinite alternate;
       pointer-events: none;
     }
     @keyframes navLineGlow {
-      0%   { opacity: 0.50; }
-      100% { opacity: 1.00; box-shadow: 0 0 10px rgba(59,130,246,0.38); }
+      0%   { opacity: 0.55; box-shadow: 0 0 8px rgba(79,158,255,0.40); }
+      100% { opacity: 1.00; box-shadow: 0 0 28px rgba(79,158,255,0.90), 0 0 6px rgba(99,102,241,0.60); }
     }
 
-    /* Hero — top edge glow line (lives just inside the hero section) */
+    /* Hero — top edge glow line */
     #hero::before {
       content: '';
       position: absolute;
       top: calc(var(--nav-h) - 1px);
       left: 0; right: 0;
-      height: 1.5px;
+      height: 3px;
       background: linear-gradient(90deg,
         transparent 0%,
-        rgba(59,130,246,0.50) 15%,
-        rgba(99,102,241,1.00) 50%,
-        rgba(59,130,246,0.50) 85%,
+        rgba(79,158,255,0.60) 10%,
+        rgba(99,102,241,1.00) 40%,
+        rgba(79,158,255,1.00) 60%,
+        rgba(79,158,255,0.60) 90%,
         transparent 100%
       );
-      animation: heroTopLine 6s ease-in-out infinite alternate;
+      animation: heroTopLine 5s ease-in-out infinite alternate;
       pointer-events: none;
       z-index: 3;
     }
     @keyframes heroTopLine {
-      0%   { opacity: 0.65; box-shadow: 0 0 12px rgba(59,130,246,0.38), 0 0 4px rgba(99,102,241,0.55); }
-      100% { opacity: 1.00; box-shadow: 0 0 32px rgba(59,130,246,0.72), 0 0 10px rgba(99,102,241,0.90); }
+      0%   { opacity: 0.60; box-shadow: 0 0 20px rgba(79,158,255,0.55), 0 0 8px rgba(99,102,241,0.70); }
+      100% { opacity: 1.00; box-shadow: 0 0 80px rgba(79,158,255,1.00), 0 0 30px rgba(99,102,241,1.00), 0 0 6px rgba(255,255,255,0.40); }
     }
 
     /* Hero — left/right ambient edge glow */
@@ -866,67 +887,67 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(90deg,  rgba(59,130,246,0.07) 0%, transparent 7%),
-        linear-gradient(270deg, rgba(59,130,246,0.07) 0%, transparent 7%);
-      animation: heroEdgeSides 8s ease-in-out infinite alternate;
+        linear-gradient(90deg,  rgba(79,158,255,0.20) 0%, transparent 10%),
+        linear-gradient(270deg, rgba(79,158,255,0.20) 0%, transparent 10%);
+      animation: heroEdgeSides 7s ease-in-out infinite alternate;
       pointer-events: none;
       z-index: 0;
     }
     @keyframes heroEdgeSides {
-      0%   { opacity: 0.70; }
-      100% { opacity: 1.30; }
+      0%   { opacity: 0.60; }
+      100% { opacity: 1.00; }
     }
 
-    /* Scan line that sweeps across the hero every ~8 s */
+    /* Scan line that sweeps across the hero every ~7 s */
     .hero-scan-line {
       position: absolute;
       top: 0; bottom: 0;
-      width: 1px;
+      width: 2px;
       background: linear-gradient(180deg,
         transparent 0%,
-        rgba(59,130,246,0.55) 28%,
-        rgba(99,102,241,0.85) 50%,
-        rgba(59,130,246,0.55) 72%,
+        rgba(79,158,255,0.70) 25%,
+        rgba(255,255,255,0.90) 50%,
+        rgba(79,158,255,0.70) 75%,
         transparent 100%
       );
-      box-shadow: 0 0 8px rgba(59,130,246,0.50);
+      box-shadow: 0 0 20px rgba(79,158,255,0.90), 0 0 6px rgba(255,255,255,0.50);
       pointer-events: none;
       z-index: 2;
       opacity: 0;
-      left: -2px;
-      animation: scanSweep 9s ease-in-out infinite;
-      animation-delay: 1.5s;
+      left: -3px;
+      animation: scanSweep 7s ease-in-out infinite;
+      animation-delay: 1.2s;
     }
     @keyframes scanSweep {
-      0%   { left: -2px;  opacity: 0.0; }
-      4%   { opacity: 0.7; }
-      96%  { opacity: 0.4; }
+      0%   { left: -3px;  opacity: 0.0; }
+      3%   { opacity: 0.9; }
+      97%  { opacity: 0.6; }
       100% { left: 101%;  opacity: 0.0; }
     }
 
     /* ── Photo card glowing border pulse ─────────────────────── */
     .hero-photo {
-      animation: photoGlow 5s ease-in-out infinite alternate !important;
+      animation: photoGlow 4s ease-in-out infinite alternate !important;
     }
     .hero-photo-secondary {
-      animation-delay: 2.5s !important;
+      animation-delay: 2.0s !important;
     }
     @keyframes photoGlow {
-      0%   { box-shadow: var(--shadow-lg), 0 0 14px rgba(59,130,246,0.08); border-color: rgba(59,130,246,0.14); }
-      100% { box-shadow: var(--shadow-lg), 0 0 40px rgba(59,130,246,0.32); border-color: rgba(59,130,246,0.42); }
+      0%   { box-shadow: var(--shadow-lg), 0 0 20px rgba(79,158,255,0.20); border-color: rgba(79,158,255,0.25); }
+      100% { box-shadow: var(--shadow-lg), 0 0 70px rgba(79,158,255,0.65), 0 0 20px rgba(99,102,241,0.50); border-color: rgba(79,158,255,0.80); }
     }
 
     /* ── Pulsating CTA button ────────────────────────────────── */
     @keyframes ctaPulse {
       0%,100% {
-        box-shadow: 0 0 26px rgba(59,130,246,0.45), 0 0 10px rgba(99,102,241,0.20), 0 4px 16px rgba(0,0,0,0.35);
+        box-shadow: 0 0 30px rgba(79,158,255,0.60), 0 0 12px rgba(99,102,241,0.35), 0 4px 16px rgba(0,0,0,0.40);
       }
       50% {
-        box-shadow: 0 0 56px rgba(59,130,246,0.82), 0 0 26px rgba(99,102,241,0.48), 0 0 8px rgba(59,130,246,0.35), 0 4px 16px rgba(0,0,0,0.35);
+        box-shadow: 0 0 120px rgba(79,158,255,1.00), 0 0 50px rgba(99,102,241,0.80), 0 0 20px rgba(255,255,255,0.25), 0 4px 16px rgba(0,0,0,0.40);
       }
     }
     .hero-cta-btn {
-      animation: ctaPulse 2.6s ease-in-out infinite !important;
+      animation: ctaPulse 2.2s ease-in-out infinite !important;
     }
     .hero-cta-btn:hover {
       animation-play-state: paused !important;
@@ -935,12 +956,12 @@
     /* ── Follow buttons — staggered glow pulse ───────────────── */
     @keyframes followGlow {
       0%,100% { border-color: var(--border); box-shadow: none; }
-      50%      { border-color: rgba(59,130,246,0.48); box-shadow: 0 0 12px rgba(59,130,246,0.20); }
+      50%      { border-color: rgba(79,158,255,0.75); box-shadow: 0 0 22px rgba(79,158,255,0.45); }
     }
-    .follow-btn { animation: followGlow 3.8s ease-in-out infinite; }
-    .follow-btn:nth-child(2) { animation-delay: 0.65s; }
-    .follow-btn:nth-child(3) { animation-delay: 1.30s; }
-    .follow-btn:nth-child(4) { animation-delay: 1.95s; }
+    .follow-btn { animation: followGlow 3.2s ease-in-out infinite; }
+    .follow-btn:nth-child(2) { animation-delay: 0.55s; }
+    .follow-btn:nth-child(3) { animation-delay: 1.10s; }
+    .follow-btn:nth-child(4) { animation-delay: 1.65s; }
     .follow-btn:hover { animation-play-state: paused; }
 
     /* ============================================================
@@ -1646,6 +1667,7 @@
     <div class="hero-orb hero-orb-1"></div>
     <div class="hero-orb hero-orb-2"></div>
     <div class="hero-orb hero-orb-3"></div>
+    <div class="hero-orb hero-orb-4"></div>
     <div class="hero-scan-line"></div>
   </div>
 
