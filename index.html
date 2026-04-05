@@ -224,6 +224,62 @@
 
   <style>
     /* ============================================================
+       GLOWING BORDER TRAIL — rotating conic-gradient
+       ============================================================ */
+    @property --glow-angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    .glow-border {
+      position: relative;
+      overflow: hidden;
+    }
+    .glow-border::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: inherit;
+      background: conic-gradient(
+        from var(--glow-angle),
+        transparent 0%,
+        transparent 55%,
+        rgba(255,255,255,0.55) 70%,
+        rgba(255,255,255,0.9) 78%,
+        #fff 80%,
+        rgba(255,255,255,0.9) 82%,
+        rgba(255,255,255,0.55) 90%,
+        transparent 100%
+      );
+      animation: glowSpin 3.5s linear infinite;
+      z-index: -1;
+    }
+    /* Inner mask to cut out the center, leaving only the border trail */
+    .glow-border::before {
+      content: '';
+      position: absolute;
+      inset: 1.5px;
+      border-radius: inherit;
+      background: var(--glow-bg, var(--surface));
+      z-index: 0;
+    }
+    /* Make sure card content sits above the pseudo-elements */
+    .glow-border > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes glowSpin {
+      to { --glow-angle: 360deg; }
+    }
+
+    /* Stagger animation for multiple cards */
+    .glow-border:nth-child(2)::after { animation-delay: -0.9s; }
+    .glow-border:nth-child(3)::after { animation-delay: -1.8s; }
+    .glow-border:nth-child(4)::after { animation-delay: -2.7s; }
+
+    /* ============================================================
        DESIGN TOKENS — all colors come from CSS vars set by JS
        ============================================================ */
     :root {
@@ -1068,11 +1124,10 @@
     .program-card {
       position: relative;
       background: var(--surface);
-      border: 1.5px solid var(--border);
+      border: none;
       border-radius: var(--r-md);
       padding: 32px 28px 28px;
       box-shadow: var(--shadow-sm);
-      overflow: hidden;
       transition: box-shadow var(--ease), transform var(--ease);
       will-change: transform;
       cursor: default;
@@ -1081,17 +1136,7 @@
       box-shadow: var(--shadow-lg);
     }
 
-    /* Accent top bar */
-    .program-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: var(--accent);
-      opacity: 0;
-      transition: opacity var(--ease);
-    }
-    .program-card:hover::before { opacity: 1; }
+    /* (accent top bar replaced by glow-border trail) */
 
     .program-badge {
       display: inline-block;
@@ -1224,8 +1269,9 @@
     }
 
     .partner-card {
+      position: relative;
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: none;
       border-radius: var(--r-md);
       padding: 24px 22px;
       display: flex;
@@ -1238,7 +1284,6 @@
     .partner-card:hover {
       box-shadow: 0 8px 32px rgba(255,255,255,0.14), var(--shadow-md);
       transform: translateY(-4px);
-      border-color: rgba(255,255,255,0.35);
     }
     .partner-card:hover .partner-img {
       transform: scale(1.04);
@@ -2121,7 +2166,7 @@
     const grid = document.getElementById('programGrid');
     CONFIG.programs.items.forEach((prog, idx) => {
       const card = document.createElement('div');
-      card.className = 'program-card fade-up';
+      card.className = 'program-card glow-border fade-up';
       card.innerHTML = `
         ${prog.badge ? `<div class="program-badge">${prog.badge}</div>` : ''}
         <h3 class="program-title">${prog.title}</h3>
@@ -2226,7 +2271,7 @@
     const grid = document.getElementById('partnersGrid');
     CONFIG.partners.items.forEach(partner => {
       const card = document.createElement('div');
-      card.className = 'partner-card fade-up';
+      card.className = 'partner-card glow-border fade-up';
       card.innerHTML = `
         ${partner.photo ? `<img class="partner-img" src="${partner.photo}" alt="${partner.brand}" loading="lazy" />` : ''}
         <div class="partner-brand">${partner.brand}</div>
