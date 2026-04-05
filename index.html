@@ -1390,25 +1390,56 @@
       margin-top: 2px;
     }
 
-    /* Mini photo strip inside the card */
+    /* Desktop: full-width photo strip behind the card */
+    .programs-bg-strip {
+      position: absolute;
+      left: 0; right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      overflow: hidden;
+      pointer-events: none;
+      mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+    }
+    .programs-bg-strip-track {
+      display: flex;
+      gap: 12px;
+      width: max-content;
+      animation: programBgScroll 25s linear infinite;
+    }
+    .programs-bg-strip-track img {
+      width: 160px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 12px;
+      flex-shrink: 0;
+      opacity: 0.3;
+    }
+    @keyframes programBgScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* Mini photo strip inside the card — mobile only */
     .program-strip-wrap {
       overflow: hidden;
       border-radius: 10px;
       margin: 16px -12px;
+      display: none;
       mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
       -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
     }
     .program-strip {
       display: flex;
-      gap: 6px;
+      gap: 8px;
       width: max-content;
-      animation: programStripScroll 20s linear infinite;
+      animation: programStripScroll 18s linear infinite;
     }
     .program-strip img {
-      width: 80px;
-      height: 80px;
+      width: 100px;
+      height: 120px;
       object-fit: cover;
-      border-radius: 8px;
+      border-radius: 10px;
       flex-shrink: 0;
     }
     @keyframes programStripScroll {
@@ -1421,7 +1452,8 @@
       .program-card { padding: 28px 22px 24px; border-radius: 16px; }
       .program-title { font-size: 22px; }
       .program-stat-num { font-size: 22px; }
-      .program-strip img { width: 60px; height: 60px; }
+      .programs-bg-strip { display: none; }
+      .program-strip-wrap { display: block; }
     }
 
     .program-badge {
@@ -2239,6 +2271,10 @@
     <div class="programs-shape"></div>
     <div class="programs-shape"></div>
   </div>
+  <!-- Desktop: full-width photo strip behind the card -->
+  <div class="programs-bg-strip" aria-hidden="true">
+    <div class="programs-bg-strip-track" id="programsBgStrip"></div>
+  </div>
   <div class="inner programs-wrap">
     <span class="section-label">Programs</span>
     <h2 class="section-title" id="programsHeadline">Train With Me</h2>
@@ -2773,16 +2809,28 @@
     }
   }
 
-  // Populate mini photo strip inside program card
+  // Populate photo strips inside program section
   if (CONFIG.photoStrip.enabled) {
+    const photos = CONFIG.photoStrip.photos;
+    const doubled = [...photos, ...photos];
+
+    // Mini strip (mobile, inside card)
     const ps = document.getElementById('programStrip');
     if (ps) {
-      [...CONFIG.photoStrip.photos, ...CONFIG.photoStrip.photos].forEach(src => {
+      doubled.forEach(src => {
         const img = document.createElement('img');
-        img.src = src;
-        img.alt = '';
-        img.loading = 'lazy';
+        img.src = src; img.alt = ''; img.loading = 'lazy';
         ps.appendChild(img);
+      });
+    }
+
+    // Background strip (desktop, behind card)
+    const bg = document.getElementById('programsBgStrip');
+    if (bg) {
+      doubled.forEach(src => {
+        const img = document.createElement('img');
+        img.src = src; img.alt = ''; img.loading = 'lazy';
+        bg.appendChild(img);
       });
     }
   }
