@@ -2662,7 +2662,7 @@
     const grid = document.getElementById('programGrid');
     CONFIG.programs.items.forEach((prog, idx) => {
       const card = document.createElement('div');
-      card.className = 'program-card glow-border fade-up' + (idx === 0 ? ' featured' : '');
+      card.className = 'program-card fade-up';
       const featuresHtml = prog.features
         ? `<ul class="program-features">${prog.features.map(f => `<li>${f}</li>`).join('')}</ul>`
         : '';
