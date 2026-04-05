@@ -108,7 +108,8 @@
       items: [
         {
           title:       '1-on-1 Online Coaching',
-          description: 'The full Peak Natty experience — weekly check-ins, personalized meal plans, training programs, form review, posing guidance, supplement stack, and 24/7 access. Whether you want to step on stage or just get diced, this is how we do it.',
+          description: 'The full Peak Natty experience. Whether you want to step on stage or just get diced — this is how we do it.',
+          features: ['Weekly Check-ins', 'Custom Meal Plans', 'Training Programs', 'Form Review', 'Posing Guidance', 'Supplement Stack', '24/7 Access', 'Contest Prep'],
           price:       'Book a Free Call',
           badge:       'Full Package',
           primaryBtn:  { text: 'Book Now',   href: 'https://calendly.com/gvmckenney/30min' },
@@ -840,17 +841,23 @@
       filter: brightness(1.15);
     }
 
-    .follow-btn[data-track-key="instagram"],
-    .follow-btn[data-track-key="instagram_alt"] {
+    .follow-btn[data-track-key="instagram"] {
       background: linear-gradient(135deg, #833AB4, #FD1D1D, #F77737, #FCAF45);
       border-color: #833AB4; color: #fff;
     }
-    .follow-btn[data-track-key="instagram"]:hover,
-    .follow-btn[data-track-key="instagram_alt"]:hover {
+    .follow-btn[data-track-key="instagram"]:hover {
       background: linear-gradient(135deg, #833AB4, #FD1D1D, #F77737, #FCAF45);
       border-color: #FD1D1D; color: #fff;
       box-shadow: 0 0 12px rgba(131,58,180,0.4), 0 0 12px rgba(253,29,29,0.4);
       filter: brightness(1.15);
+    }
+
+    .follow-btn[data-track-key="instagram_alt"] {
+      background: #000; border-color: #000; color: #fff;
+    }
+    .follow-btn[data-track-key="instagram_alt"]:hover {
+      background: #222; border-color: #222; color: #fff;
+      box-shadow: 0 5px 16px rgba(0,0,0,0.3);
     }
 
     .follow-btn[data-track-key="youtube"] {
@@ -1213,53 +1220,151 @@
       background: #fff;
       position: relative;
       z-index: 501;
+      overflow: hidden;
     }
-    #programs .section-label { color: #666; }
+    #programs .section-label { color: #2563eb; font-weight: 700; }
     #programs .section-title { color: #000; }
-    #programs .section-sub   { color: #333; }
+    #programs .section-sub   { color: #444; }
 
-    .programs-wrap { text-align: center; }
+    /* Animated floating shapes behind the card */
+    .programs-bg-shapes {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .programs-shape {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.08;
+      filter: blur(40px);
+    }
+    .programs-shape:nth-child(1) {
+      width: 300px; height: 300px;
+      background: #2563eb;
+      top: -80px; right: -60px;
+      animation: shapeFloat1 8s ease-in-out infinite;
+    }
+    .programs-shape:nth-child(2) {
+      width: 200px; height: 200px;
+      background: #7c3aed;
+      bottom: -40px; left: -40px;
+      animation: shapeFloat2 10s ease-in-out infinite;
+    }
+    .programs-shape:nth-child(3) {
+      width: 150px; height: 150px;
+      background: #06b6d4;
+      top: 50%; left: 60%;
+      animation: shapeFloat3 7s ease-in-out infinite;
+    }
+    @keyframes shapeFloat1 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50%      { transform: translate(-30px, 20px) scale(1.1); }
+    }
+    @keyframes shapeFloat2 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50%      { transform: translate(20px, -25px) scale(1.15); }
+    }
+    @keyframes shapeFloat3 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50%      { transform: translate(-15px, -20px) scale(0.9); }
+    }
+
+    .programs-wrap {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
 
     .program-grid {
       max-width: 640px;
-      margin: 24px auto 0;
+      margin: 28px auto 0;
       text-align: left;
     }
 
     .program-card {
       position: relative;
       background: #fff;
-      border: none;
-      border-radius: var(--r-md);
-      padding: 36px 32px 32px;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 20px;
+      padding: 40px 36px 36px;
       cursor: default;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    .program-card:hover {
+      box-shadow: 0 12px 50px rgba(37,99,235,0.12), 0 4px 20px rgba(0,0,0,0.08);
     }
 
-    .program-title { color: #000; }
-    .program-desc  { color: #333; }
-    .program-price { color: #000; }
+    .program-title { color: #000; font-size: 28px; }
+    .program-desc  { color: #333; line-height: 1.7; }
+    .program-price { color: #000; font-weight: 700; }
 
     .program-card .program-badge {
-      background: #000;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
       color: #fff;
-      border-color: #000;
+      border: none;
+      padding: 5px 16px;
+      font-size: 11px;
+      animation: badgePulse 3s ease-in-out infinite;
+    }
+    @keyframes badgePulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(37,99,235,0.3); }
+      50%      { box-shadow: 0 0 0 8px rgba(37,99,235,0); }
     }
 
     .program-card .btn-primary {
-      background: #2563eb;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
       color: #fff;
       border: none;
+      padding: 14px 32px;
+      font-size: 15px;
+      font-weight: 700;
+      border-radius: var(--r-pill);
+      box-shadow: 0 4px 16px rgba(37,99,235,0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
     .program-card .btn-primary:hover {
-      background: #1d4ed8;
+      background: linear-gradient(135deg, #1d4ed8, #1e40af);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(37,99,235,0.45);
     }
     .program-card .btn-outline {
-      color: #000;
-      border-color: rgba(0,0,0,0.2);
+      color: #2563eb;
+      border-color: rgba(37,99,235,0.3);
+      font-weight: 600;
     }
     .program-card .btn-outline:hover {
-      background: rgba(0,0,0,0.05);
-      border-color: #000;
+      background: rgba(37,99,235,0.06);
+      border-color: #2563eb;
+    }
+
+    /* Checkmark feature list styling for the description */
+    .program-features {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .program-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 14px;
+      color: #333;
+    }
+    .program-features li::before {
+      content: '✓';
+      color: #2563eb;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    @media (max-width: 660px) {
+      .program-features { grid-template-columns: 1fr; }
+      .program-card { padding: 28px 22px 24px; border-radius: 16px; }
+      .program-title { font-size: 22px; }
     }
 
     .program-badge {
@@ -2072,6 +2177,11 @@
      PROGRAMS
 ────────────────────────────────────────────────── -->
 <section id="programs">
+  <div class="programs-bg-shapes" aria-hidden="true">
+    <div class="programs-shape"></div>
+    <div class="programs-shape"></div>
+    <div class="programs-shape"></div>
+  </div>
   <div class="inner programs-wrap">
     <span class="section-label">Programs</span>
     <h2 class="section-title" id="programsHeadline">Train With Me</h2>
@@ -2552,10 +2662,14 @@
     CONFIG.programs.items.forEach((prog, idx) => {
       const card = document.createElement('div');
       card.className = 'program-card glow-border fade-up' + (idx === 0 ? ' featured' : '');
+      const featuresHtml = prog.features
+        ? `<ul class="program-features">${prog.features.map(f => `<li>${f}</li>`).join('')}</ul>`
+        : '';
       card.innerHTML = `
         ${prog.badge ? `<div class="program-badge">${prog.badge}</div>` : ''}
         <h3 class="program-title">${prog.title}</h3>
         <p class="program-desc">${prog.description}</p>
+        ${featuresHtml}
         <div class="program-price">${prog.price}</div>
         <div class="program-actions">
           <a href="${prog.primaryBtn.href}" class="btn-primary tracked" data-track-key="program_primary_${idx}" target="_blank" rel="noopener">${prog.primaryBtn.text}</a>
