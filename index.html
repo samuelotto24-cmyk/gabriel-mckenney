@@ -486,71 +486,81 @@
     }
 
     /* ============================================================
-       PAGE LOADER — Peak Natty Full-Screen Build
+       PAGE LOADER — Peak Natty Stroke-Draw + Split Reveal
        ============================================================ */
     #loader {
       position: fixed;
       inset: 0;
-      background: #000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       z-index: 10000;
       overflow: hidden;
     }
 
-    .intro-stage {
-      position: relative;
-      width: 85vw;
-      height: 85vw;
-      max-width: 700px;
-      max-height: 700px;
+    /* Split panels (black bg, top and bottom halves) */
+    .intro-panel {
+      position: absolute;
+      left: 0; right: 0;
+      height: 50%;
+      background: #000;
+      z-index: 1;
+      will-change: transform;
     }
+    .intro-panel-top    { top: 0; }
+    .intro-panel-bottom { bottom: 0; }
 
-    /* Each slice is a copy of the SVG clipped to a horizontal band */
-    .intro-slice {
+    /* Film grain texture */
+    .intro-grain {
       position: absolute;
       inset: 0;
+      z-index: 2;
+      opacity: 0.06;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px;
+    }
+
+    /* White flash at the seam */
+    .intro-flash {
+      position: absolute;
+      left: 0; right: 0;
+      top: 50%;
+      height: 4px;
+      margin-top: -2px;
+      background: #fff;
+      box-shadow: 0 0 60px 30px rgba(255,255,255,0.9),
+                  0 0 120px 60px rgba(255,255,255,0.5);
+      z-index: 4;
       opacity: 0;
     }
-    .intro-slice img {
+
+    /* Logo stage — centered on screen, above panels */
+    .intro-logo-stage {
       position: absolute;
       inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    /* Slices come from alternating sides */
-    .intro-slice:nth-child(odd)  { transform: translateX(-110%); }
-    .intro-slice:nth-child(even) { transform: translateX(110%); }
-
-    /* Animate each slice in */
-    .intro-slice.in {
-      opacity: 1;
-      transform: translateX(0);
-      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-                  opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    /* Glow pulse after assembly */
-    .intro-stage.assembled {
-      animation: introGlow 1.2s 0.1s ease-in-out forwards;
-    }
-    @keyframes introGlow {
-      0%   { filter: drop-shadow(0 0 0px rgba(255,255,255,0)); }
-      50%  { filter: drop-shadow(0 0 60px rgba(255,255,255,0.35)); }
-      100% { filter: drop-shadow(0 0 20px rgba(255,255,255,0.1)); }
-    }
-
-    /* Exit: loader fades + slight scale */
-    #loader.exit {
-      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-                  transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-      opacity: 0;
-      transform: scale(1.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
       pointer-events: none;
     }
+
+    .intro-logo-stage svg {
+      position: absolute;
+      width: 85vw;
+      max-width: 700px;
+      height: auto;
+    }
+
+    /* Stroke version */
+    .intro-stroke path {
+      fill: none;
+      stroke: #fff;
+      stroke-width: 120;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Fill version — starts invisible */
+    .intro-fill { opacity: 0; }
 
     /* ============================================================
        NAV
@@ -1794,8 +1804,12 @@
      PAGE LOADER
 ────────────────────────────────────────────────── -->
 <div id="loader">
-  <div class="intro-stage" id="introStage">
-    <!-- 8 horizontal slices of the logo, assembled by JS -->
+  <div class="intro-panel intro-panel-top"></div>
+  <div class="intro-panel intro-panel-bottom"></div>
+  <div class="intro-grain"></div>
+  <div class="intro-flash"></div>
+  <div class="intro-logo-stage" id="introStage">
+    <!-- Stroke + fill SVGs injected by JS -->
   </div>
 </div>
 
@@ -2148,39 +2162,114 @@
   metaDesc.content = CONFIG.og.description;
   document.head.appendChild(metaDesc);
 
-  /* ── 4. Loader — Peak Natty slice-build intro ─────────────────── */
+  /* ── 4. Loader — Peak Natty stroke-draw intro ─────────────────── */
   (function() {
-    const SLICES = 8;
     const stage = document.getElementById('introStage');
 
-    for (let i = 0; i < SLICES; i++) {
-      const slice = document.createElement('div');
-      slice.className = 'intro-slice';
-      const pct = 100 / SLICES;
-      slice.style.clipPath = `inset(${pct * i}% 0 ${pct * (SLICES - 1 - i)}% 0)`;
-      slice.innerHTML = `<img src="assets/peak-natty.svg" alt="" />`;
-      stage.appendChild(slice);
-    }
+    fetch('assets/peak-natty.svg')
+      .then(r => r.text())
+      .then(svgText => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(svgText, 'image/svg+xml');
+        const origSvg = doc.querySelector('svg');
 
-    const slices = stage.querySelectorAll('.intro-slice');
+        // --- Stroke version (outline draws itself) ---
+        const strokeSvg = origSvg.cloneNode(true);
+        strokeSvg.classList.add('intro-stroke');
+        strokeSvg.querySelector('g').setAttribute('fill', 'none');
+        strokeSvg.querySelector('g').setAttribute('stroke', 'white');
 
-    window.addEventListener('load', () => {
-      // Stagger each slice flying in
-      slices.forEach((s, i) => {
-        setTimeout(() => s.classList.add('in'), 300 + i * 120);
+        // --- Fill version (floods in after stroke) ---
+        const fillSvg = origSvg.cloneNode(true);
+        fillSvg.classList.add('intro-fill');
+
+        stage.appendChild(strokeSvg);
+        stage.appendChild(fillSvg);
+
+        // Wait one frame for DOM to calculate path lengths
+        requestAnimationFrame(() => {
+          const paths = strokeSvg.querySelectorAll('path');
+          paths.forEach(p => {
+            const len = p.getTotalLength();
+            p.style.strokeDasharray = len;
+            p.style.strokeDashoffset = len;
+          });
+
+          // ── GSAP Timeline ──
+          const tl = gsap.timeline({ delay: 0.4 });
+
+          // 1. Stroke draws (~2.5s)
+          tl.to(paths, {
+            strokeDashoffset: 0,
+            duration: 2.5,
+            ease: 'power2.inOut',
+          });
+
+          // 2. Fill floods in (starts slightly before stroke finishes)
+          tl.to(fillSvg, {
+            opacity: 1,
+            duration: 0.4,
+            ease: 'power1.in',
+          }, '-=0.4');
+
+          // 3. Fade out stroke so only clean fill remains
+          tl.to(strokeSvg, {
+            opacity: 0,
+            duration: 0.3,
+          }, '-=0.2');
+
+          // 4. Hard spotlight bloom — stage lights hitting you
+          tl.to(stage, {
+            filter: 'drop-shadow(0 0 100px rgba(255,255,255,0.9))',
+            duration: 0.4,
+            ease: 'power3.out',
+          });
+          tl.to(stage, {
+            filter: 'drop-shadow(0 0 30px rgba(255,255,255,0.2))',
+            duration: 0.4,
+            ease: 'power2.inOut',
+          });
+
+          // 5. Brief hold
+          tl.to({}, { duration: 0.3 });
+
+          // 6. Logo fades out
+          tl.to(stage, {
+            opacity: 0,
+            scale: 1.03,
+            duration: 0.3,
+            ease: 'power2.in',
+          });
+
+          // 7. White flash at seam
+          tl.to('.intro-flash', {
+            opacity: 1,
+            duration: 0.07,
+          });
+          tl.to('.intro-flash', {
+            opacity: 0,
+            duration: 0.3,
+            ease: 'power2.out',
+          });
+
+          // 8. Panels rip apart — aggressive with overshoot
+          tl.to('.intro-panel-top', {
+            yPercent: -100,
+            duration: 0.5,
+            ease: 'back.in(2)',
+          }, '-=0.25');
+          tl.to('.intro-panel-bottom', {
+            yPercent: 100,
+            duration: 0.5,
+            ease: 'back.in(2)',
+          }, '<');
+
+          // 9. Cleanup
+          tl.call(() => {
+            document.getElementById('loader').style.display = 'none';
+          });
+        });
       });
-
-      // After all slices land, glow pulse
-      const assembledAt = 300 + SLICES * 120 + 200;
-      setTimeout(() => stage.classList.add('assembled'), assembledAt);
-
-      // Then exit
-      setTimeout(() => {
-        const loader = document.getElementById('loader');
-        loader.classList.add('exit');
-        setTimeout(() => { loader.style.display = 'none'; }, 700);
-      }, assembledAt + 1300);
-    });
   })();
 
   /* ── 5. Nav ───────────────────────────────────────────────────── */
