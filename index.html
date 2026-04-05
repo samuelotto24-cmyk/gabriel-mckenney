@@ -848,12 +848,19 @@
       top: 50%;
       left: 55%;
       transform: translate(-50%, -50%) rotate(-12deg);
-      width: clamp(500px, 80vw, 900px);
+      width: clamp(300px, 80vw, 900px);
       height: auto;
       opacity: 0.04;
       pointer-events: none;
       z-index: 0;
       filter: blur(1px);
+    }
+    @media (max-width: 660px) {
+      .hero-watermark {
+        left: 50%;
+        width: 110vw;
+        opacity: 0.03;
+      }
     }
 
     /* ── Floating glow orbs ─────────────────────────────────── */
@@ -1290,6 +1297,35 @@
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 16px;
       margin-top: 24px;
+    }
+    @media (max-width: 660px) {
+      .partners-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      .partner-card {
+        padding: 12px 10px;
+        gap: 6px;
+      }
+      .partner-brand {
+        font-size: 14px;
+      }
+      .partner-discount {
+        font-size: 10px;
+      }
+      .partner-code-wrap {
+        padding: 7px 10px;
+        gap: 6px;
+      }
+      .partner-code {
+        font-size: 12px;
+      }
+      .partner-link {
+        font-size: 10px;
+      }
+      .partner-img {
+        border-radius: calc(var(--r-md) - 6px);
+      }
     }
 
     .partner-card {
@@ -1981,7 +2017,7 @@
 ────────────────────────────────────────────────── -->
 <section id="callout-banner">
   <div class="inner callout-inner fade-up">
-    <span class="callout-quote">"I don't just write programs — I build competitors."</span>
+    <span class="callout-quote">"I don't just write programs — I build the best version of you."</span>
     <span class="callout-attr">— Gabe McKenney, Founder of Peak Natty</span>
   </div>
 </section>
