@@ -1362,10 +1362,66 @@
       font-weight: 700;
       flex-shrink: 0;
     }
+    /* Stats row inside the card */
+    .program-stats {
+      display: flex;
+      justify-content: space-around;
+      gap: 12px;
+      margin: 20px 0;
+      padding: 16px 0;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+    .program-stat { text-align: center; }
+    .program-stat-num {
+      display: block;
+      font-family: var(--display-font);
+      font-size: 28px;
+      font-weight: 700;
+      color: #000 !important;
+      line-height: 1.1;
+    }
+    .program-stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #666 !important;
+      margin-top: 2px;
+    }
+
+    /* Mini photo strip inside the card */
+    .program-strip-wrap {
+      overflow: hidden;
+      border-radius: 10px;
+      margin: 16px -12px;
+      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    }
+    .program-strip {
+      display: flex;
+      gap: 6px;
+      width: max-content;
+      animation: programStripScroll 20s linear infinite;
+    }
+    .program-strip img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+    @keyframes programStripScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
     @media (max-width: 660px) {
       .program-features { grid-template-columns: 1fr; }
       .program-card { padding: 28px 22px 24px; border-radius: 16px; }
       .program-title { font-size: 22px; }
+      .program-stat-num { font-size: 22px; }
+      .program-strip img { width: 60px; height: 60px; }
     }
 
     .program-badge {
@@ -2671,7 +2727,14 @@
         <h3 class="program-title">${prog.title}</h3>
         <p class="program-desc">${prog.description}</p>
         ${featuresHtml}
-        <div class="program-price">${prog.price}</div>
+        <div class="program-stats">
+          <div class="program-stat"><span class="program-stat-num">50+</span><span class="program-stat-label">Clients Coached</span></div>
+          <div class="program-stat"><span class="program-stat-num">100%</span><span class="program-stat-label">Natural</span></div>
+          <div class="program-stat"><span class="program-stat-num">OCB</span><span class="program-stat-label">Pro</span></div>
+        </div>
+        <div class="program-strip-wrap">
+          <div class="program-strip" id="programStrip"></div>
+        </div>
         <div class="program-actions">
           <a href="${prog.primaryBtn.href}" class="btn-primary tracked" data-track-key="program_primary_${idx}" target="_blank" rel="noopener">${prog.primaryBtn.text}</a>
           <a href="${prog.outlineBtn.href}" class="btn-outline tracked" data-track-key="program_outline_${idx}" target="_blank" rel="noopener">${prog.outlineBtn.text}</a>
@@ -2709,6 +2772,24 @@
       });
     }
   }
+
+  // Populate mini photo strip inside program card
+  if (CONFIG.photoStrip.enabled) {
+    const ps = document.getElementById('programStrip');
+    if (ps) {
+      [...CONFIG.photoStrip.photos, ...CONFIG.photoStrip.photos].forEach(src => {
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = '';
+        img.loading = 'lazy';
+        ps.appendChild(img);
+      });
+    }
+  }
+
+  // Hide the old standalone results banner and photo strip sections
+  document.getElementById('results-banner').classList.add('section-hidden');
+  document.getElementById('strip').classList.add('section-hidden');
 
   /* ── 9. Photo Strip ───────────────────────────────────────────── */
   if (!CONFIG.photoStrip.enabled) {
