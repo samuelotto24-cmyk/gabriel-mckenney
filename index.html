@@ -1691,6 +1691,45 @@
       50%      { filter: drop-shadow(0 0 30px rgba(255,255,255,0.2)); opacity: 1; }
     }
 
+    /* ============================================================
+       STICKY BOOK-A-CALL CTA
+       ============================================================ */
+    .sticky-cta {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 5000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 24px;
+      background: #fff;
+      color: #000;
+      font-family: var(--body-font);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      border-radius: var(--r-pill);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 0 40px rgba(255,255,255,0.15);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
+    }
+    .sticky-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 28px rgba(0,0,0,0.6), 0 0 60px rgba(255,255,255,0.25);
+    }
+    .sticky-cta i {
+      font-size: 16px;
+    }
+    @media (max-width: 660px) {
+      .sticky-cta {
+        bottom: 14px;
+        right: 14px;
+        padding: 12px 20px;
+        font-size: 13px;
+      }
+    }
+
     .footer-ornament {
       display: inline-block;
       width: 32px;
@@ -2108,6 +2147,11 @@
 <!-- ─────────────────────────────────────────────────
      FOOTER
 ────────────────────────────────────────────────── -->
+<!-- Sticky Book a Call -->
+<a href="https://calendly.com/gvmckenney/30min" class="sticky-cta tracked" data-track-key="sticky_book" target="_blank" rel="noopener">
+  <i class="fa-solid fa-calendar-check"></i> Book a Call
+</a>
+
 <footer id="footer">
   <div class="footer-name" id="footerName"><img src="assets/peak-natty.svg" alt="Peak Natty" /></div>
   <div>
