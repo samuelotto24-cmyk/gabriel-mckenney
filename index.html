@@ -486,68 +486,70 @@
     }
 
     /* ============================================================
-       PAGE LOADER — Peak Natty Intro
+       PAGE LOADER — Peak Natty Full-Screen Build
        ============================================================ */
     #loader {
       position: fixed;
       inset: 0;
       background: #000;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       z-index: 10000;
       overflow: hidden;
     }
-    #loader.exit {
-      animation: loaderExit 0.8s 0.1s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-    }
 
-    .loader-logo {
-      width: clamp(200px, 45vw, 380px);
-      opacity: 0;
-      transform: scale(0.85);
-      filter: drop-shadow(0 0 0px rgba(255,255,255,0));
-      animation: logoReveal 1s 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards,
-                 logoBreathe 2.4s 1.3s ease-in-out 1 forwards;
-    }
-
-    .loader-line {
-      width: 60px;
-      height: 1px;
-      background: rgba(255,255,255,0.25);
-      margin-top: 28px;
-      opacity: 0;
-      animation: lineReveal 0.6s 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    .intro-stage {
       position: relative;
-      overflow: hidden;
+      width: 85vw;
+      height: 85vw;
+      max-width: 700px;
+      max-height: 700px;
     }
-    .loader-line::after {
-      content: '';
+
+    /* Each slice is a copy of the SVG clipped to a horizontal band */
+    .intro-slice {
       position: absolute;
       inset: 0;
-      background: #fff;
-      transform: translateX(-100%);
-      animation: lineSweep 1.2s 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+    }
+    .intro-slice img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
 
-    @keyframes logoReveal {
-      to { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 40px rgba(255,255,255,0.08)); }
+    /* Slices come from alternating sides */
+    .intro-slice:nth-child(odd)  { transform: translateX(-110%); }
+    .intro-slice:nth-child(even) { transform: translateX(110%); }
+
+    /* Animate each slice in */
+    .intro-slice.in {
+      opacity: 1;
+      transform: translateX(0);
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    @keyframes logoBreathe {
-      0%  { filter: drop-shadow(0 0 40px rgba(255,255,255,0.08)); transform: scale(1); }
-      50% { filter: drop-shadow(0 0 80px rgba(255,255,255,0.15)); transform: scale(1.02); }
-      100% { filter: drop-shadow(0 0 40px rgba(255,255,255,0.08)); transform: scale(1); }
+
+    /* Glow pulse after assembly */
+    .intro-stage.assembled {
+      animation: introGlow 1.2s 0.1s ease-in-out forwards;
     }
-    @keyframes lineReveal {
-      to { opacity: 1; }
+    @keyframes introGlow {
+      0%   { filter: drop-shadow(0 0 0px rgba(255,255,255,0)); }
+      50%  { filter: drop-shadow(0 0 60px rgba(255,255,255,0.35)); }
+      100% { filter: drop-shadow(0 0 20px rgba(255,255,255,0.1)); }
     }
-    @keyframes lineSweep {
-      to { transform: translateX(100%); }
-    }
-    @keyframes loaderExit {
-      0%   { opacity: 1; transform: scale(1); }
-      100% { opacity: 0; transform: scale(1.08); }
+
+    /* Exit: loader fades + slight scale */
+    #loader.exit {
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                  transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0;
+      transform: scale(1.05);
+      pointer-events: none;
     }
 
     /* ============================================================
@@ -1792,8 +1794,9 @@
      PAGE LOADER
 ────────────────────────────────────────────────── -->
 <div id="loader">
-  <img src="assets/peak-natty.svg" alt="Peak Natty" class="loader-logo" />
-  <div class="loader-line"></div>
+  <div class="intro-stage" id="introStage">
+    <!-- 8 horizontal slices of the logo, assembled by JS -->
+  </div>
 </div>
 
 <!-- ─────────────────────────────────────────────────
@@ -2145,14 +2148,40 @@
   metaDesc.content = CONFIG.og.description;
   document.head.appendChild(metaDesc);
 
-  /* ── 4. Loader ────────────────────────────────────────────────── */
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      const loader = document.getElementById('loader');
-      loader.classList.add('exit');
-      setTimeout(() => { loader.style.display = 'none'; }, 900);
-    }, 2800);
-  });
+  /* ── 4. Loader — Peak Natty slice-build intro ─────────────────── */
+  (function() {
+    const SLICES = 8;
+    const stage = document.getElementById('introStage');
+
+    for (let i = 0; i < SLICES; i++) {
+      const slice = document.createElement('div');
+      slice.className = 'intro-slice';
+      const pct = 100 / SLICES;
+      slice.style.clipPath = `inset(${pct * i}% 0 ${pct * (SLICES - 1 - i)}% 0)`;
+      slice.innerHTML = `<img src="assets/peak-natty.svg" alt="" />`;
+      stage.appendChild(slice);
+    }
+
+    const slices = stage.querySelectorAll('.intro-slice');
+
+    window.addEventListener('load', () => {
+      // Stagger each slice flying in
+      slices.forEach((s, i) => {
+        setTimeout(() => s.classList.add('in'), 300 + i * 120);
+      });
+
+      // After all slices land, glow pulse
+      const assembledAt = 300 + SLICES * 120 + 200;
+      setTimeout(() => stage.classList.add('assembled'), assembledAt);
+
+      // Then exit
+      setTimeout(() => {
+        const loader = document.getElementById('loader');
+        loader.classList.add('exit');
+        setTimeout(() => { loader.style.display = 'none'; }, 700);
+      }, assembledAt + 1300);
+    });
+  })();
 
   /* ── 5. Nav ───────────────────────────────────────────────────── */
   document.getElementById('navLogo').textContent = CONFIG.name;
