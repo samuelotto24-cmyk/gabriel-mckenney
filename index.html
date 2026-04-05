@@ -1902,34 +1902,6 @@
       50%       { opacity: 0.35; }
     }
 
-    /* ============================================================
-       SNAP FLOAT BUTTON
-       ============================================================ */
-    #snapFloat {
-      position: fixed;
-      bottom: 28px;
-      right: 24px;
-      z-index: 4000;
-      display: none;   /* shown by JS if snapchat URL is set */
-    }
-
-    .snap-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 52px;
-      height: 52px;
-      background: #FFFC00;
-      border-radius: 50%;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-      transition: transform var(--ease), box-shadow var(--ease);
-      color: #000;
-      font-size: 22px;
-    }
-    .snap-btn:hover {
-      transform: scale(1.10) translateY(-2px);
-      box-shadow: 0 8px 28px rgba(0,0,0,0.20);
-    }
 
     /* ── Book-a-Call animation ──────────────────── */
     .book-ripple {
@@ -2277,14 +2249,6 @@
   </div>
 </div>
 
-<!-- ─────────────────────────────────────────────────
-     SNAPCHAT FLOAT
-────────────────────────────────────────────────── -->
-<div id="snapFloat">
-  <a href="#" class="snap-btn" id="snapBtn" target="_blank" rel="noopener" aria-label="Snapchat">
-    <i class="fa-brands fa-snapchat"></i>
-  </a>
-</div>
 
 <!-- Copy toast -->
 <div class="copy-toast" id="copyToast">Code copied!</div>
@@ -2852,13 +2816,6 @@
     }
 
     setTimeout(showTicker, 6000 + Math.random() * 4000);
-  }
-
-  /* ── 17. Snap Float ───────────────────────────────────────────── */
-  if (CONFIG.social.snapchat) {
-    const snapFloat = document.getElementById('snapFloat');
-    snapFloat.style.display = 'block';
-    document.getElementById('snapBtn').href = CONFIG.social.snapchat;
   }
 
   /* ── 18. Copy toast helper ────────────────────────────────────── */
