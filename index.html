@@ -375,7 +375,7 @@
       gap: 8px;
       padding: 13px 30px;
       background: var(--accent);
-      color: #fff;
+      color: #000;
       border-radius: var(--r-pill);
       font-family: var(--body-font);
       font-size: 14px;
@@ -390,7 +390,7 @@
       background: var(--accent-dark);
       transform: translateY(-2px);
       box-shadow: 0 8px 22px rgba(0,0,0,0.20);
-      color: #fff;
+      color: #000;
     }
 
     /* Hero booking CTA — larger, glowing */
@@ -425,57 +425,73 @@
     }
     .btn-outline:hover {
       background: var(--accent);
-      color: #fff;
+      color: #000;
       transform: translateY(-1px);
     }
 
     /* ============================================================
-       PAGE LOADER
+       PAGE LOADER — Peak Natty Intro
        ============================================================ */
     #loader {
       position: fixed;
       inset: 0;
-      background: var(--bg);
+      background: #000;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       z-index: 10000;
-      transition: opacity 0.5s ease;
-    }
-    #loader.hidden { opacity: 0; pointer-events: none; }
-
-    .loader-name {
-      font-family: var(--display-font);
-      font-size: clamp(32px, 6vw, 52px);
-      font-weight: 400;
-      color: var(--text);
-      letter-spacing: 0.04em;
-      opacity: 0;
-      transform: translateY(12px);
-      animation: loaderIn 0.7s 0.2s cubic-bezier(0.16,1,0.3,1) forwards;
-    }
-    @keyframes loaderIn {
-      to { opacity: 1; transform: none; }
-    }
-
-    .loader-bar-wrap {
-      width: 120px;
-      height: 2px;
-      background: var(--border);
-      border-radius: 2px;
-      margin-top: 24px;
       overflow: hidden;
     }
-    .loader-bar {
-      height: 100%;
-      width: 0%;
-      background: var(--accent);
-      border-radius: 2px;
-      animation: loaderBar 1s 0.4s cubic-bezier(0.16,1,0.3,1) forwards;
+    #loader.exit {
+      animation: loaderExit 0.8s 0.1s cubic-bezier(0.65, 0, 0.35, 1) forwards;
     }
-    @keyframes loaderBar {
-      to { width: 100%; }
+
+    .loader-logo {
+      width: clamp(200px, 45vw, 380px);
+      opacity: 0;
+      transform: scale(0.85);
+      filter: drop-shadow(0 0 0px rgba(255,255,255,0));
+      animation: logoReveal 1s 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+                 logoBreathe 2.4s 1.3s ease-in-out 1 forwards;
+    }
+
+    .loader-line {
+      width: 60px;
+      height: 1px;
+      background: rgba(255,255,255,0.25);
+      margin-top: 28px;
+      opacity: 0;
+      animation: lineReveal 0.6s 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      position: relative;
+      overflow: hidden;
+    }
+    .loader-line::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: #fff;
+      transform: translateX(-100%);
+      animation: lineSweep 1.2s 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes logoReveal {
+      to { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 40px rgba(255,255,255,0.08)); }
+    }
+    @keyframes logoBreathe {
+      0%  { filter: drop-shadow(0 0 40px rgba(255,255,255,0.08)); transform: scale(1); }
+      50% { filter: drop-shadow(0 0 80px rgba(255,255,255,0.15)); transform: scale(1.02); }
+      100% { filter: drop-shadow(0 0 40px rgba(255,255,255,0.08)); transform: scale(1); }
+    }
+    @keyframes lineReveal {
+      to { opacity: 1; }
+    }
+    @keyframes lineSweep {
+      to { transform: translateX(100%); }
+    }
+    @keyframes loaderExit {
+      0%   { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(1.08); }
     }
 
     /* ============================================================
@@ -1621,6 +1637,21 @@
       transform: scale(1.04) !important;
       transition: background 0.15s, border-color 0.15s, box-shadow 0.15s, transform 0.15s !important;
     }
+
+    /* ============================================================
+       FULL-PAGE FLOATING PARTICLES
+       ============================================================ */
+    #particles-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    /* Ensure all content sits above the particle canvas */
+    #nav, #hero, section, footer, #loader {
+      position: relative;
+      z-index: 1;
+    }
   </style>
   <!-- Vercel Analytics -->
   <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
@@ -1628,14 +1659,15 @@
 </head>
 <body>
 
+<!-- Full-page particle background -->
+<canvas id="particles-canvas"></canvas>
+
 <!-- ─────────────────────────────────────────────────
      PAGE LOADER
 ────────────────────────────────────────────────── -->
 <div id="loader">
-  <div class="loader-name" id="loaderName">Creator Name</div>
-  <div class="loader-bar-wrap">
-    <div class="loader-bar"></div>
-  </div>
+  <img src="assets/peak-natty.svg" alt="Peak Natty" class="loader-logo" />
+  <div class="loader-line"></div>
 </div>
 
 <!-- ─────────────────────────────────────────────────
@@ -1959,13 +1991,12 @@
   document.head.appendChild(metaDesc);
 
   /* ── 4. Loader ────────────────────────────────────────────────── */
-  document.getElementById('loaderName').textContent = CONFIG.name;
   window.addEventListener('load', () => {
     setTimeout(() => {
       const loader = document.getElementById('loader');
-      loader.classList.add('hidden');
-      setTimeout(() => { loader.style.display = 'none'; }, 500);
-    }, 1100);
+      loader.classList.add('exit');
+      setTimeout(() => { loader.style.display = 'none'; }, 900);
+    }, 2800);
   });
 
   /* ── 5. Nav ───────────────────────────────────────────────────── */
@@ -2161,11 +2192,25 @@
     if (CONFIG.youtube.videoId && CONFIG.youtube.videoId !== 'YOUTUBE_VIDEO_ID') {
       const embedEl = document.getElementById('youtubeEmbed');
       const iframe  = document.createElement('iframe');
-      iframe.src = `https://www.youtube.com/embed/${CONFIG.youtube.videoId}?rel=0&modestbranding=1`;
+      iframe.id = 'ytPlayer';
+      iframe.src = `https://www.youtube.com/embed/${CONFIG.youtube.videoId}?rel=0&modestbranding=1&enablejsapi=1&mute=1`;
       iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
       iframe.allowFullscreen = true;
       iframe.loading = 'lazy';
       embedEl.appendChild(iframe);
+
+      /* Autoplay on scroll into view, pause when out */
+      const ytObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          try {
+            const msg = entry.isIntersecting
+              ? '{"event":"command","func":"playVideo","args":""}'
+              : '{"event":"command","func":"pauseVideo","args":""}';
+            iframe.contentWindow.postMessage(msg, '*');
+          } catch(e) {}
+        });
+      }, { threshold: 0.4 });
+      ytObserver.observe(embedEl);
     } else {
       document.getElementById('youtubeEmbed').style.display = 'none';
     }
@@ -2568,6 +2613,77 @@
     }, 520);
   }, true);
 
+</script>
+
+<!-- ── Full-page floating particles ─────────────────────────── -->
+<script>
+(function() {
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  let w, h, particles;
+  const COUNT = 60;
+
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+
+  function init() {
+    particles = [];
+    for (let i = 0; i < COUNT; i++) {
+      particles.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 1.8 + 0.4,
+        dx: (Math.random() - 0.5) * 0.3,
+        dy: (Math.random() - 0.5) * 0.15 - 0.1,
+        opacity: Math.random() * 0.5 + 0.1,
+        pulse: Math.random() * Math.PI * 2,
+        pulseSpeed: Math.random() * 0.015 + 0.005,
+      });
+    }
+  }
+
+  function loop() {
+    ctx.clearRect(0, 0, w, h);
+    particles.forEach(p => {
+      p.x += p.dx;
+      p.y += p.dy;
+      p.pulse += p.pulseSpeed;
+      const a = p.opacity * (0.6 + 0.4 * Math.sin(p.pulse));
+      if (p.x < -10) p.x = w + 10;
+      if (p.x > w + 10) p.x = -10;
+      if (p.y < -10) p.y = h + 10;
+      if (p.y > h + 10) p.y = -10;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,255,255,${a})`;
+      ctx.fill();
+    });
+    // faint connecting lines
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const d = dx * dx + dy * dy;
+        if (d < 22500) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(255,255,255,${0.06 * (1 - Math.sqrt(d) / 150)})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(loop);
+  }
+
+  resize();
+  init();
+  loop();
+  window.addEventListener('resize', () => { resize(); init(); });
+})();
 </script>
 
 </body>
