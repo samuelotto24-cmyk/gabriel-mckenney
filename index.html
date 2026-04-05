@@ -1185,7 +1185,7 @@
     .program-card {
       position: relative;
       background: var(--surface);
-      border: none;
+      border: 1px solid var(--border);
       border-radius: var(--r-md);
       padding: 32px 28px 28px;
       box-shadow: var(--shadow-sm);
@@ -1197,7 +1197,42 @@
       box-shadow: var(--shadow-lg);
     }
 
-    /* (accent top bar replaced by glow-border trail) */
+    /* Featured / primary card — inverted colors */
+    .program-card.featured {
+      background: #fff;
+      border: 2px solid #fff;
+      transform: scale(1.03);
+      box-shadow: 0 8px 40px rgba(255,255,255,0.15), var(--shadow-lg);
+    }
+    .program-card.featured:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 50px rgba(255,255,255,0.25), var(--shadow-lg);
+    }
+    .program-card.featured .program-title,
+    .program-card.featured .program-desc,
+    .program-card.featured .program-price {
+      color: #000;
+    }
+    .program-card.featured .program-badge {
+      background: #000;
+      color: #fff;
+      border-color: #000;
+    }
+    .program-card.featured .btn-primary {
+      background: #000;
+      color: #fff;
+    }
+    .program-card.featured .btn-primary:hover {
+      background: #222;
+    }
+    .program-card.featured .btn-outline {
+      color: #000;
+      border-color: rgba(0,0,0,0.25);
+    }
+    .program-card.featured .btn-outline:hover {
+      background: rgba(0,0,0,0.06);
+      border-color: #000;
+    }
 
     .program-badge {
       display: inline-block;
@@ -2521,7 +2556,7 @@
     const grid = document.getElementById('programGrid');
     CONFIG.programs.items.forEach((prog, idx) => {
       const card = document.createElement('div');
-      card.className = 'program-card glow-border fade-up';
+      card.className = 'program-card glow-border fade-up' + (idx === 0 ? ' featured' : '');
       card.innerHTML = `
         ${prog.badge ? `<div class="program-badge">${prog.badge}</div>` : ''}
         <h3 class="program-title">${prog.title}</h3>
