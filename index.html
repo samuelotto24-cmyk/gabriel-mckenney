@@ -1180,7 +1180,7 @@
     /* ============================================================
        PROGRAMS
        ============================================================ */
-    #programs { background: var(--bg); }
+    #programs { background: var(--bg); position: relative; z-index: 501; }
 
     .programs-wrap { text-align: center; }
 
@@ -1952,6 +1952,9 @@
       inset: 0;
       z-index: 500;
       pointer-events: none;
+    }
+    @media (max-width: 660px) {
+      #particles-canvas { display: none; }
     }
   </style>
   <!-- Vercel Analytics -->
