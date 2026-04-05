@@ -367,6 +367,16 @@
     }
 
     section { padding: var(--py) var(--px); }
+    @media (max-width: 660px) {
+      :root { --py: 24px; --px: 16px; }
+      .section-title { font-size: clamp(26px, 7vw, 34px); margin-bottom: 6px; }
+      .section-sub { font-size: 13px; }
+      .section-label { font-size: 9px; margin-bottom: 6px; }
+      .program-grid { gap: 14px; margin-top: 18px; }
+      .program-card { padding: 22px 18px 20px; }
+      .program-title { font-size: 20px; }
+      .program-desc { font-size: 13px; }
+    }
 
     .section-label {
       display: block;
