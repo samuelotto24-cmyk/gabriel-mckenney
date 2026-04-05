@@ -681,6 +681,36 @@
       position: relative;
     }
 
+    .hero-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--r-pill);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .hero-status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4ade80;
+      animation: statusPulse 2s ease-in-out infinite;
+    }
+    @keyframes statusPulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(74,222,128,0.4); }
+      50%      { opacity: 0.7; box-shadow: 0 0 0 4px rgba(74,222,128,0); }
+    }
+    @media (max-width: 660px) {
+      .hero-status { margin: 0 auto 14px; }
+    }
+
     /* Two photos side by side */
     .hero-photo-stack {
       display: grid;
@@ -1943,6 +1973,10 @@
 
   <div class="hero-inner">
     <div class="hero-photo-wrap" id="heroPhotoWrap">
+      <div class="hero-status">
+        <span class="hero-status-dot"></span>
+        Accepting New Athletes
+      </div>
       <div class="hero-photo-stack">
         <div class="hero-photo" id="heroPhoto">
           <img src="assets/hero-gym.jpg" alt="" id="heroImg" />
