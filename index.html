@@ -1453,7 +1453,31 @@
       .program-title { font-size: 22px; }
       .program-stat-num { font-size: 22px; }
       .programs-bg-strip { display: none; }
-      .program-strip-wrap { display: block; }
+      .program-strip-wrap { display: none; }
+      .program-mobile-strip {
+        display: block !important;
+        overflow: hidden;
+        margin: 20px calc(-1 * var(--px));
+        mask-image: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
+      }
+      .program-mobile-strip-track {
+        display: flex;
+        gap: 10px;
+        width: max-content;
+        animation: programMobileScroll 16s linear infinite;
+      }
+      .program-mobile-strip-track img {
+        width: 140px;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 12px;
+        flex-shrink: 0;
+      }
+      @keyframes programMobileScroll {
+        from { transform: translateX(0); }
+        to   { transform: translateX(-50%); }
+      }
     }
 
     .program-badge {
@@ -2283,6 +2307,11 @@
     <div class="program-grid stagger" id="programGrid">
       <!-- injected by JS -->
     </div>
+
+    <!-- Mobile: full-bleed photo strip -->
+    <div class="program-mobile-strip" style="display:none;">
+      <div class="program-mobile-strip-track" id="programMobileStrip"></div>
+    </div>
   </div>
 </section>
 
@@ -2831,6 +2860,16 @@
         const img = document.createElement('img');
         img.src = src; img.alt = ''; img.loading = 'lazy';
         bg.appendChild(img);
+      });
+    }
+
+    // Mobile full-bleed strip
+    const ms = document.getElementById('programMobileStrip');
+    if (ms) {
+      doubled.forEach(src => {
+        const img = document.createElement('img');
+        img.src = src; img.alt = ''; img.loading = 'lazy';
+        ms.appendChild(img);
       });
     }
   }
