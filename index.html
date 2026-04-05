@@ -830,21 +830,27 @@
 
     /* Platform-specific colors */
     .follow-btn[data-track-key="tiktok"] {
-      background: #000; border-color: #000; color: #fff;
+      background: linear-gradient(135deg, #25F4EE, #000 40%, #FE2C55);
+      border-color: #25F4EE; color: #fff;
     }
     .follow-btn[data-track-key="tiktok"]:hover {
-      background: #ff0050; border-color: #ff0050; color: #fff;
-      box-shadow: 0 5px 20px rgba(255,0,80,0.35);
+      background: linear-gradient(135deg, #25F4EE, #000 40%, #FE2C55);
+      border-color: #FE2C55; color: #fff;
+      box-shadow: 0 0 12px rgba(37,244,238,0.4), 0 0 12px rgba(254,44,85,0.4);
+      filter: brightness(1.15);
     }
 
     .follow-btn[data-track-key="instagram"],
     .follow-btn[data-track-key="instagram_alt"] {
-      background: #000; border-color: #000; color: #fff;
+      background: linear-gradient(135deg, #833AB4, #FD1D1D, #F77737, #FCAF45);
+      border-color: #833AB4; color: #fff;
     }
     .follow-btn[data-track-key="instagram"]:hover,
     .follow-btn[data-track-key="instagram_alt"]:hover {
-      background: #E1306C; border-color: #E1306C; color: #fff;
-      box-shadow: 0 5px 20px rgba(225,48,108,0.35);
+      background: linear-gradient(135deg, #833AB4, #FD1D1D, #F77737, #FCAF45);
+      border-color: #FD1D1D; color: #fff;
+      box-shadow: 0 0 12px rgba(131,58,180,0.4), 0 0 12px rgba(253,29,29,0.4);
+      filter: brightness(1.15);
     }
 
     .follow-btn[data-track-key="youtube"] {
