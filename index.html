@@ -550,16 +550,7 @@
       height: auto;
     }
 
-    /* Stroke version */
-    .intro-stroke path {
-      fill: none;
-      stroke: #fff;
-      stroke-width: 120;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    /* Fill version — starts invisible */
+    /* Fill version — starts invisible, fades in via GSAP */
     .intro-fill { opacity: 0; }
 
     /* ============================================================
@@ -2165,6 +2156,23 @@
   /* ── 4. Loader — Peak Natty stroke-draw intro ─────────────────── */
   (function() {
     const stage = document.getElementById('introStage');
+    const loader = document.getElementById('loader');
+
+    // Fallback: if anything fails, just reveal the site
+    function bailOut() {
+      loader.style.display = 'none';
+    }
+
+    // Split a single path d-attribute into separate subpaths at each uppercase M
+    function splitSubpaths(d) {
+      const parts = [];
+      const re = /M[^M]*/g;
+      let match;
+      while ((match = re.exec(d)) !== null) {
+        parts.push(match[0].trim());
+      }
+      return parts;
+    }
 
     fetch('assets/peak-natty.svg')
       .then(r => r.text())
@@ -2172,40 +2180,83 @@
         const parser = new DOMParser();
         const doc = parser.parseFromString(svgText, 'image/svg+xml');
         const origSvg = doc.querySelector('svg');
+        if (!origSvg) return bailOut();
 
-        // --- Stroke version (outline draws itself) ---
-        const strokeSvg = origSvg.cloneNode(true);
-        strokeSvg.classList.add('intro-stroke');
-        strokeSvg.querySelector('g').setAttribute('fill', 'none');
-        strokeSvg.querySelector('g').setAttribute('stroke', 'white');
+        const gTransform = origSvg.querySelector('g').getAttribute('transform');
 
-        // --- Fill version (floods in after stroke) ---
-        const fillSvg = origSvg.cloneNode(true);
-        fillSvg.classList.add('intro-fill');
+        // Collect all subpath d-strings from the original
+        const origPaths = origSvg.querySelectorAll('path');
+        const allSubpaths = [];
+        origPaths.forEach(p => {
+          splitSubpaths(p.getAttribute('d')).forEach(d => allSubpaths.push(d));
+        });
+
+        // Helper: build an SVG with separate <path> elements for each subpath
+        function makeSvg(className, attrs) {
+          const ns = 'http://www.w3.org/2000/svg';
+          const svg = document.createElementNS(ns, 'svg');
+          svg.setAttribute('viewBox', '0 0 934 934');
+          svg.setAttribute('width', '934');
+          svg.setAttribute('height', '934');
+          svg.classList.add(className);
+
+          const g = document.createElementNS(ns, 'g');
+          g.setAttribute('transform', gTransform);
+          // Clear inherited fill/stroke from original <g>
+          Object.entries(attrs).forEach(([k, v]) => g.setAttribute(k, v));
+
+          allSubpaths.forEach(d => {
+            const path = document.createElementNS(ns, 'path');
+            path.setAttribute('d', d);
+            // Set directly on each path to guarantee override
+            Object.entries(attrs).forEach(([k, v]) => path.setAttribute(k, v));
+            g.appendChild(path);
+          });
+
+          svg.appendChild(g);
+          return svg;
+        }
+
+        // --- Stroke SVG (outline draws) ---
+        const strokeSvg = makeSvg('intro-stroke', {
+          'fill': 'none',
+          'stroke': '#fff',
+          'stroke-width': '120',
+          'stroke-linecap': 'round',
+          'stroke-linejoin': 'round',
+        });
+
+        // --- Fill SVG (floods in after) ---
+        const fillSvg = makeSvg('intro-fill', {
+          'fill': '#fff',
+          'stroke': 'none',
+        });
 
         stage.appendChild(strokeSvg);
         stage.appendChild(fillSvg);
 
-        // Wait one frame for DOM to calculate path lengths
+        // Wait for render, then measure path lengths
         requestAnimationFrame(() => {
-          const paths = strokeSvg.querySelectorAll('path');
-          paths.forEach(p => {
-            const len = p.getTotalLength();
-            p.style.strokeDasharray = len;
-            p.style.strokeDashoffset = len;
+          const strokePaths = strokeSvg.querySelectorAll('path');
+          strokePaths.forEach(p => {
+            try {
+              const len = p.getTotalLength();
+              p.style.strokeDasharray = len;
+              p.style.strokeDashoffset = len;
+            } catch(e) { /* skip broken subpaths */ }
           });
 
           // ── GSAP Timeline ──
-          const tl = gsap.timeline({ delay: 0.4 });
+          const tl = gsap.timeline({ delay: 0.3 });
 
-          // 1. Stroke draws (~2.5s)
-          tl.to(paths, {
+          // 1. Stroke draws (~2.5s) — all paths draw simultaneously
+          tl.to(strokePaths, {
             strokeDashoffset: 0,
             duration: 2.5,
             ease: 'power2.inOut',
           });
 
-          // 2. Fill floods in (starts slightly before stroke finishes)
+          // 2. Fill floods in (overlaps end of stroke)
           tl.to(fillSvg, {
             opacity: 1,
             duration: 0.4,
@@ -2218,7 +2269,7 @@
             duration: 0.3,
           }, '-=0.2');
 
-          // 4. Hard spotlight bloom — stage lights hitting you
+          // 4. Hard spotlight bloom — stage lights
           tl.to(stage, {
             filter: 'drop-shadow(0 0 100px rgba(255,255,255,0.9))',
             duration: 0.4,
@@ -2265,11 +2316,10 @@
           }, '<');
 
           // 9. Cleanup
-          tl.call(() => {
-            document.getElementById('loader').style.display = 'none';
-          });
+          tl.call(() => { loader.style.display = 'none'; });
         });
-      });
+      })
+      .catch(bailOut);
   })();
 
   /* ── 5. Nav ───────────────────────────────────────────────────── */
