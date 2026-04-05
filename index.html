@@ -90,7 +90,7 @@
 
     // ── About ─────────────────────────────────────────────────────────
     about: {
-      enabled:  true,
+      enabled:  false,
       headline: "Hey, I'm Gabe",
       body:     "I'm an OCB professional bodybuilder currently training to earn my IFBB Pro card, and the founder and only coach of Team Peak Natty. I've helped dozens of young men get absolutely diced — and put quite a few of them on stage in their own bodybuilding shows. If you want a coach who's been in the trenches, holds you accountable, and knows exactly what it takes to build a stage-ready physique naturally — you're in the right place.",
       stats: [
@@ -174,7 +174,7 @@
 
     // ── Contact ───────────────────────────────────────────────────────
     contact: {
-      enabled:    true,
+      enabled:    false,
       headline:   'Ready to Transform?',
       type:       'calendly',   // 'email' | 'calendly'
       email:      '',
@@ -1362,6 +1362,20 @@
       font-weight: 700;
       flex-shrink: 0;
     }
+    /* Callout quote inside programs */
+    .program-callout {
+      text-align: center;
+      max-width: 580px;
+      margin: 28px auto 0;
+    }
+    .program-callout .callout-quote {
+      color: #000 !important;
+      font-size: clamp(18px, 3.5vw, 28px);
+    }
+    .program-callout .callout-attr {
+      color: #666 !important;
+    }
+
     /* Stats row inside the card */
     .program-stats {
       display: flex;
@@ -1609,9 +1623,12 @@
 
     .partners-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 16px;
       margin-top: 24px;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
     }
     @media (max-width: 660px) {
       .partners-grid {
@@ -2311,6 +2328,11 @@
     <div class="program-mobile-strip" style="display:none;">
       <div class="program-mobile-strip-track" id="programMobileStrip"></div>
     </div>
+
+    <div class="program-callout">
+      <span class="callout-quote">"I don't just write programs — I build the best version of you."</span>
+      <span class="callout-attr">— Gabe McKenney, Founder of Peak Natty</span>
+    </div>
   </div>
 </section>
 
@@ -2357,12 +2379,7 @@
 <!-- ─────────────────────────────────────────────────
      CALLOUT BANNER
 ────────────────────────────────────────────────── -->
-<section id="callout-banner">
-  <div class="inner callout-inner fade-up">
-    <span class="callout-quote">"I don't just write programs — I build the best version of you."</span>
-    <span class="callout-attr">— Gabe McKenney, Founder of Peak Natty</span>
-  </div>
-</section>
+<section id="callout-banner" class="section-hidden"></section>
 
 <!-- ─────────────────────────────────────────────────
      YOUTUBE
