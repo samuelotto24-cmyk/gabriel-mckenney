@@ -43,16 +43,16 @@
     // ── Brand ────────────────────────────────────────────────────────
     name:    'Gabe McKenney',
     handle:  '@gabemckenney_',
-    tagline: 'Classic Physique · Team Peak Natty · Online Coach',
+    tagline: 'OCB Pro · Training for IFBB Pro Card · Founder of Peak Natty',
 
     // ── Colors ───────────────────────────────────────────────────────
     colors: {
-      bg:      '#08090D',   // near-black with cool tint
-      accent:  '#4F9EFF',   // vivid electric blue
-      text:    '#EEF2FF',   // off-white with blue tint
-      muted:   '#8FA5C8',   // muted steel blue — readable on dark bg
-      surface: '#111827',   // dark navy
-      border:  '#1F2D4A',   // subtle navy border
+      bg:      '#000000',   // pure black
+      accent:  '#FFFFFF',   // white
+      text:    '#FFFFFF',   // white
+      muted:   '#999999',   // neutral grey
+      surface: '#0A0A0A',   // near-black
+      border:  '#1A1A1A',   // subtle dark border
     },
 
     // ── Display Font ─────────────────────────────────────────────────
@@ -92,23 +92,23 @@
     about: {
       enabled:  true,
       headline: "Hey, I'm Gabe",
-      body:     "I'm a competitive Classic Physique athlete, Team Peak Natty member, and online coach who has dedicated years to mastering the science of building an elite physique. I competed at the OCB West Coast Nationals and have helped dozens of athletes and everyday people achieve results they never thought possible. If you want a coach who holds you accountable, teaches you the fundamentals, and delivers guaranteed results — you're in the right place.",
+      body:     "I'm an OCB professional bodybuilder currently training to earn my IFBB Pro card, and the founder and only coach of Team Peak Natty. I've helped dozens of young men get absolutely diced — and put quite a few of them on stage in their own bodybuilding shows. If you want a coach who's been in the trenches, holds you accountable, and knows exactly what it takes to build a stage-ready physique naturally — you're in the right place.",
       stats: [
-        { value: 'OCB',        label: 'Competitor'    },
-        { value: 'Peak Natty', label: 'Team'          },
-        { value: '1-on-1',     label: 'Coaching'      },
+        { value: 'OCB',        label: 'Pro'           },
+        { value: 'Peak Natty', label: 'Founder'       },
+        { value: 'Dozens',     label: 'Athletes Coached' },
       ],
     },
 
     // ── Programs ──────────────────────────────────────────────────────
     programs: {
       enabled:     true,
-      headline:    'Train With Me',
-      subheadline: 'Elite coaching. Real results. Guaranteed.',
+      headline:    'Train With Peak Natty',
+      subheadline: 'Elite natural coaching. Real results. Guaranteed.',
       items: [
         {
           title:       '1-on-1 Online Coaching',
-          description: 'Full custom coaching with weekly check-ins, personalized meal plans, training programs, form review, posing guidance, supplement stack, and 24/7 access. Built for athletes who are serious about competing or transforming.',
+          description: 'The full Peak Natty experience — weekly check-ins, personalized meal plans, training programs, form review, posing guidance, supplement stack, and 24/7 access. Whether you want to step on stage or just get diced, this is how we do it.',
           price:       'Book a Free Call',
           badge:       'Full Package',
           primaryBtn:  { text: 'Book Now',   href: 'https://calendly.com/gvmckenney/30min' },
@@ -116,7 +116,7 @@
         },
         {
           title:       'Custom Training Plan',
-          description: 'A fully personalized training program built around your goals, schedule, and available equipment. Includes progressive overload programming, exercise demos, and a 2-week check-in.',
+          description: 'A fully personalized training program built around your goals, schedule, and equipment. Progressive overload programming, exercise demos, and a 2-week check-in. Same methods I use to prep athletes for the stage.',
           price:       'Book a Free Call',
           badge:       '',
           primaryBtn:  { text: 'Get Started', href: 'https://calendly.com/gvmckenney/30min' },
@@ -153,7 +153,7 @@
     partners: {
       enabled:     true,
       headline:    'My Partners',
-      subheadline: 'Brands I use and trust. Use code GABE at checkout.',
+      subheadline: 'Brands I use and trust. Use my code at checkout.',
       items: [
         { brand: 'The Flavor Gang',  code: 'GABE', discount: 'Discount applied', href: 'https://theflavorgang.com', photo: 'assets/partner-flavor-gang.jpg' },
         { brand: 'Soar Protein Bars', code: 'GABE', discount: 'Discount applied', href: 'https://soarbars.com',    photo: 'assets/partner-soar.jpg'        },
@@ -203,8 +203,8 @@
 
     // ── Open Graph ────────────────────────────────────────────────────
     og: {
-      title:       'Gabe McKenney — Classic Physique & Online Coach',
-      description: 'Competitive Classic Physique athlete and 1-on-1 online coach. Custom meal plans, training programs, weekly check-ins, and guaranteed results.',
+      title:       'Gabe McKenney — OCB Pro · Founder of Peak Natty',
+      description: 'OCB professional bodybuilder, founder of Peak Natty, and fitness coach who has helped dozens of young men get stage-ready. Custom coaching, meal plans, and guaranteed results.',
       image:       'https://coachgabemckenney.com/assets/hero.jpg',
       url:         'https://coachgabemckenney.com',
     },
@@ -228,18 +228,18 @@
        ============================================================ */
     :root {
       /* Fallback palette (overridden by CONFIG.colors via JS) */
-      --bg:      #08090D;
-      --accent:  #4F9EFF;
-      --text:    #EEF2FF;
-      --muted:   #6B7A9A;
-      --surface: #111827;
-      --border:  #1F2D4A;
+      --bg:      #000000;
+      --accent:  #FFFFFF;
+      --text:    #FFFFFF;
+      --muted:   #999999;
+      --surface: #0A0A0A;
+      --border:  #1A1A1A;
 
       /* Derived / fixed tokens */
-      --accent-dark:   #2563EB;
-      --blush-light:   #111827;
-      --blush:         #1D2842;
-      --warm-white:    #0D0D17;
+      --accent-dark:   #CCCCCC;
+      --blush-light:   #0A0A0A;
+      --blush:         #111111;
+      --warm-white:    #050505;
 
       /* Typography */
       --display-font: 'Cormorant Garamond', serif;   /* overridden by JS */
@@ -398,11 +398,11 @@
       padding: 16px 38px;
       font-size: 15px;
       letter-spacing: 0.04em;
-      box-shadow: 0 0 28px rgba(59,130,246,0.40), 0 4px 16px rgba(0,0,0,0.35);
+      box-shadow: 0 0 28px rgba(255,255,255,0.30), 0 4px 16px rgba(0,0,0,0.35);
       align-self: flex-start;
     }
     .hero-cta-btn:hover {
-      box-shadow: 0 0 44px rgba(59,130,246,0.60), 0 6px 24px rgba(0,0,0,0.45);
+      box-shadow: 0 0 44px rgba(255,255,255,0.45), 0 6px 24px rgba(0,0,0,0.45);
       transform: translateY(-3px);
     }
 
@@ -490,7 +490,7 @@
       transition: box-shadow var(--ease);
     }
     #nav.scrolled {
-      box-shadow: 0 1px 0 rgba(59,130,246,0.08), 0 4px 20px rgba(0,0,0,0.40);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.06), 0 4px 20px rgba(0,0,0,0.40);
     }
 
     .nav-inner {
@@ -582,7 +582,7 @@
       padding-left: var(--px);
       padding-right: var(--px);
       background: var(--bg);
-      background-image: radial-gradient(ellipse 70% 60% at 60% 50%, rgba(59,130,246,0.07) 0%, transparent 70%);
+      background-image: radial-gradient(ellipse 70% 60% at 60% 50%, rgba(255,255,255,0.05) 0%, transparent 70%);
       overflow: hidden;
     }
 
@@ -612,9 +612,9 @@
       aspect-ratio: 2 / 3;
       border-radius: var(--r-lg);
       overflow: hidden;
-      box-shadow: var(--shadow-lg), 0 0 40px rgba(59,130,246,0.10);
+      box-shadow: var(--shadow-lg), 0 0 40px rgba(255,255,255,0.08);
       background: var(--blush-light);
-      border: 1px solid rgba(59,130,246,0.15);
+      border: 1px solid rgba(255,255,255,0.12);
       will-change: transform;
     }
 
@@ -774,38 +774,38 @@
       will-change: transform;
       pointer-events: none;
     }
-    /* Orb 1 — large vivid blue, top-right */
+    /* Orb 1 — large white, top-right */
     .hero-orb-1 {
       width: clamp(400px, 72vw, 900px);
       height: clamp(400px, 72vw, 900px);
-      background: radial-gradient(circle, rgba(79,158,255,0.60) 0%, rgba(59,130,246,0.28) 40%, transparent 70%);
+      background: radial-gradient(circle, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.18) 40%, transparent 70%);
       filter: blur(48px);
       top: -18%; right: -14%;
       animation: orbDrift1 12s ease-in-out infinite;
     }
-    /* Orb 2 — medium indigo, bottom-left */
+    /* Orb 2 — medium white, bottom-left */
     .hero-orb-2 {
       width: clamp(320px, 56vw, 680px);
       height: clamp(320px, 56vw, 680px);
-      background: radial-gradient(circle, rgba(99,102,241,0.55) 0%, rgba(79,158,255,0.22) 50%, transparent 72%);
+      background: radial-gradient(circle, rgba(255,255,255,0.40) 0%, rgba(255,255,255,0.15) 50%, transparent 72%);
       filter: blur(56px);
       bottom: -14%; left: -4%;
       animation: orbDrift2 16s ease-in-out infinite;
     }
-    /* Orb 3 — accent blue, center */
+    /* Orb 3 — white, center */
     .hero-orb-3 {
       width: clamp(220px, 36vw, 480px);
       height: clamp(220px, 36vw, 480px);
-      background: radial-gradient(circle, rgba(79,158,255,0.45) 0%, transparent 68%);
+      background: radial-gradient(circle, rgba(255,255,255,0.35) 0%, transparent 68%);
       filter: blur(40px);
       top: 22%; left: 32%;
       animation: orbDrift3 20s ease-in-out infinite;
     }
-    /* Orb 4 — subtle warm accent, mid-right */
+    /* Orb 4 — subtle white, mid-right */
     .hero-orb-4 {
       width: clamp(160px, 24vw, 320px);
       height: clamp(160px, 24vw, 320px);
-      background: radial-gradient(circle, rgba(139,92,246,0.40) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(255,255,255,0.30) 0%, transparent 70%);
       filter: blur(36px);
       top: 50%; right: 8%;
       animation: orbDrift4 18s ease-in-out infinite;
@@ -844,17 +844,17 @@
       height: 2px;
       background: linear-gradient(90deg,
         transparent 0%,
-        rgba(79,158,255,0.55) 15%,
-        rgba(79,158,255,1.00) 50%,
-        rgba(79,158,255,0.55) 85%,
+        rgba(255,255,255,0.55) 15%,
+        rgba(255,255,255,1.00) 50%,
+        rgba(255,255,255,0.55) 85%,
         transparent 100%
       );
       animation: navLineGlow 4s ease-in-out infinite alternate;
       pointer-events: none;
     }
     @keyframes navLineGlow {
-      0%   { opacity: 0.55; box-shadow: 0 0 8px rgba(79,158,255,0.40); }
-      100% { opacity: 1.00; box-shadow: 0 0 28px rgba(79,158,255,0.90), 0 0 6px rgba(99,102,241,0.60); }
+      0%   { opacity: 0.55; box-shadow: 0 0 8px rgba(255,255,255,0.40); }
+      100% { opacity: 1.00; box-shadow: 0 0 28px rgba(255,255,255,0.90), 0 0 6px rgba(255,255,255,0.60); }
     }
 
     /* Hero — top edge glow line */
@@ -866,10 +866,10 @@
       height: 3px;
       background: linear-gradient(90deg,
         transparent 0%,
-        rgba(79,158,255,0.60) 10%,
-        rgba(99,102,241,1.00) 40%,
-        rgba(79,158,255,1.00) 60%,
-        rgba(79,158,255,0.60) 90%,
+        rgba(255,255,255,0.60) 10%,
+        rgba(255,255,255,1.00) 40%,
+        rgba(255,255,255,1.00) 60%,
+        rgba(255,255,255,0.60) 90%,
         transparent 100%
       );
       animation: heroTopLine 5s ease-in-out infinite alternate;
@@ -877,8 +877,8 @@
       z-index: 3;
     }
     @keyframes heroTopLine {
-      0%   { opacity: 0.60; box-shadow: 0 0 20px rgba(79,158,255,0.55), 0 0 8px rgba(99,102,241,0.70); }
-      100% { opacity: 1.00; box-shadow: 0 0 80px rgba(79,158,255,1.00), 0 0 30px rgba(99,102,241,1.00), 0 0 6px rgba(255,255,255,0.40); }
+      0%   { opacity: 0.60; box-shadow: 0 0 20px rgba(255,255,255,0.55), 0 0 8px rgba(255,255,255,0.70); }
+      100% { opacity: 1.00; box-shadow: 0 0 80px rgba(255,255,255,1.00), 0 0 30px rgba(255,255,255,1.00), 0 0 6px rgba(255,255,255,0.40); }
     }
 
     /* Hero — left/right ambient edge glow */
@@ -887,8 +887,8 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(90deg,  rgba(79,158,255,0.20) 0%, transparent 10%),
-        linear-gradient(270deg, rgba(79,158,255,0.20) 0%, transparent 10%);
+        linear-gradient(90deg,  rgba(255,255,255,0.15) 0%, transparent 10%),
+        linear-gradient(270deg, rgba(255,255,255,0.15) 0%, transparent 10%);
       animation: heroEdgeSides 7s ease-in-out infinite alternate;
       pointer-events: none;
       z-index: 0;
@@ -905,12 +905,12 @@
       width: 2px;
       background: linear-gradient(180deg,
         transparent 0%,
-        rgba(79,158,255,0.70) 25%,
+        rgba(255,255,255,0.70) 25%,
         rgba(255,255,255,0.90) 50%,
-        rgba(79,158,255,0.70) 75%,
+        rgba(255,255,255,0.70) 75%,
         transparent 100%
       );
-      box-shadow: 0 0 20px rgba(79,158,255,0.90), 0 0 6px rgba(255,255,255,0.50);
+      box-shadow: 0 0 20px rgba(255,255,255,0.90), 0 0 6px rgba(255,255,255,0.50);
       pointer-events: none;
       z-index: 2;
       opacity: 0;
@@ -933,17 +933,17 @@
       animation-delay: 2.0s !important;
     }
     @keyframes photoGlow {
-      0%   { box-shadow: var(--shadow-lg), 0 0 20px rgba(79,158,255,0.20); border-color: rgba(79,158,255,0.25); }
-      100% { box-shadow: var(--shadow-lg), 0 0 70px rgba(79,158,255,0.65), 0 0 20px rgba(99,102,241,0.50); border-color: rgba(79,158,255,0.80); }
+      0%   { box-shadow: var(--shadow-lg), 0 0 20px rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.20); }
+      100% { box-shadow: var(--shadow-lg), 0 0 70px rgba(255,255,255,0.50), 0 0 20px rgba(255,255,255,0.40); border-color: rgba(255,255,255,0.65); }
     }
 
     /* ── Pulsating CTA button ────────────────────────────────── */
     @keyframes ctaPulse {
       0%,100% {
-        box-shadow: 0 0 30px rgba(79,158,255,0.60), 0 0 12px rgba(99,102,241,0.35), 0 4px 16px rgba(0,0,0,0.40);
+        box-shadow: 0 0 30px rgba(255,255,255,0.45), 0 0 12px rgba(255,255,255,0.25), 0 4px 16px rgba(0,0,0,0.40);
       }
       50% {
-        box-shadow: 0 0 120px rgba(79,158,255,1.00), 0 0 50px rgba(99,102,241,0.80), 0 0 20px rgba(255,255,255,0.25), 0 4px 16px rgba(0,0,0,0.40);
+        box-shadow: 0 0 120px rgba(255,255,255,0.85), 0 0 50px rgba(255,255,255,0.65), 0 0 20px rgba(255,255,255,0.25), 0 4px 16px rgba(0,0,0,0.40);
       }
     }
     .hero-cta-btn {
@@ -956,7 +956,7 @@
     /* ── Follow buttons — staggered glow pulse ───────────────── */
     @keyframes followGlow {
       0%,100% { border-color: var(--border); box-shadow: none; }
-      50%      { border-color: rgba(79,158,255,0.75); box-shadow: 0 0 22px rgba(79,158,255,0.45); }
+      50%      { border-color: rgba(255,255,255,0.60); box-shadow: 0 0 22px rgba(255,255,255,0.35); }
     }
     .follow-btn { animation: followGlow 3.2s ease-in-out infinite; }
     .follow-btn:nth-child(2) { animation-delay: 0.55s; }
@@ -1220,9 +1220,9 @@
       cursor: pointer;
     }
     .partner-card:hover {
-      box-shadow: 0 8px 32px rgba(59,130,246,0.18), var(--shadow-md);
+      box-shadow: 0 8px 32px rgba(255,255,255,0.14), var(--shadow-md);
       transform: translateY(-4px);
-      border-color: rgba(59,130,246,0.45);
+      border-color: rgba(255,255,255,0.35);
     }
     .partner-card:hover .partner-img {
       transform: scale(1.04);
@@ -1604,7 +1604,7 @@
       inset: 0;
       z-index: 99998;
       pointer-events: none;
-      background: radial-gradient(ellipse at center, rgba(59,130,246,0.18) 0%, transparent 70%);
+      background: radial-gradient(ellipse at center, rgba(255,255,255,0.14) 0%, transparent 70%);
       opacity: 0;
       animation: book-flash 0.65s ease-out forwards;
     }
@@ -1933,7 +1933,7 @@
   r.setProperty('--border',       CONFIG.colors.border);
   r.setProperty('--display-font', font.family);
   // Dark theme derived overrides
-  r.setProperty('--accent-dark',  '#2563EB');
+  r.setProperty('--accent-dark',  '#CCCCCC');
   r.setProperty('--blush-light',  '#111827');
   r.setProperty('--blush',        '#1D2842');
   r.setProperty('--warm-white',   '#0D0D17');
@@ -2210,7 +2210,7 @@
                 x: (rect.left + rect.width / 2) / window.innerWidth,
                 y: (rect.top  + rect.height / 2) / window.innerHeight,
               },
-              colors: ['#3B82F6', '#60A5FA', '#93C5FD', '#EEF2FF', '#ffffff'],
+              colors: ['#FFFFFF', '#E0E0E0', '#C0C0C0', '#A0A0A0', '#ffffff'],
               startVelocity: 28,
               gravity: 0.9,
               scalar: 0.85,
