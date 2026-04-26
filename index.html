@@ -152,7 +152,7 @@
       enabled:    true,
       headline:   'Watch My Latest',
       channelUrl: 'https://www.youtube.com/channel/UChjeH2waJC8Ff_A1ypHCUvA',
-      videoId:    'JxN1Dz1TY4U',
+      videoId:    'l4EDSEcdScI',
     },
 
     // ── Partner Codes ─────────────────────────────────────────────────
@@ -2935,7 +2935,7 @@
       const embedEl = document.getElementById('youtubeEmbed');
       const iframe  = document.createElement('iframe');
       iframe.id = 'ytPlayer';
-      iframe.src = `https://www.youtube.com/embed/${CONFIG.youtube.videoId}?rel=0&modestbranding=1&enablejsapi=1&mute=1`;
+      iframe.src = `https://www.youtube.com/embed/${CONFIG.youtube.videoId}?rel=0&modestbranding=1&enablejsapi=1&mute=1&autoplay=1&playsinline=1`;
       iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
       iframe.allowFullscreen = true;
       iframe.loading = 'lazy';
