@@ -151,7 +151,6 @@
         'assets/strip-22.jpg',
         'assets/strip-23.jpg',
         'assets/strip-24.jpg',
-        'assets/strip-25.jpg',
       ],
       speed: '40s',
     },
@@ -736,17 +735,14 @@
       .hero-status { margin: 0 auto 14px; }
     }
 
-    /* Two photos side by side */
+    /* Single landscape hero photo */
     .hero-photo-stack {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      align-items: start;
+      display: block;
     }
 
     .hero-photo {
       width: 100%;
-      aspect-ratio: 2 / 3;
+      aspect-ratio: 4 / 3;
       border-radius: var(--r-lg);
       overflow: hidden;
       box-shadow: var(--shadow-lg), 0 0 40px rgba(255,255,255,0.08);
@@ -755,9 +751,8 @@
       will-change: transform;
     }
 
-    /* Second photo staggered down for depth */
     .hero-photo-secondary {
-      margin-top: 36px;
+      display: none;
     }
 
     .hero-photo img {
@@ -929,7 +924,7 @@
 
     @media (max-width: 660px) {
       .hero-inner { grid-template-columns: 1fr; text-align: center; }
-      .hero-photo { max-width: 280px; margin: 0 auto; aspect-ratio: 4/5; }
+      .hero-photo { max-width: 360px; margin: 0 auto; aspect-ratio: 4/3; }
       .hero-ornament { margin: 4px auto; }
       .follow-row, .quick-row { justify-content: center; }
     }
