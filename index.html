@@ -4,6 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+
   <!-- Open Graph / Twitter meta — injected dynamically from CONFIG.og below -->
   <meta property="og:type" content="website" />
   <meta property="og:title"       id="ogTitle"       content="" />
@@ -752,7 +757,7 @@
 
     .hero-photo {
       width: 100%;
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 3 / 4;
       border-radius: var(--r-lg);
       overflow: hidden;
       box-shadow: var(--shadow-lg), 0 0 40px rgba(255,255,255,0.08);
@@ -935,7 +940,7 @@
 
     @media (max-width: 660px) {
       .hero-inner { grid-template-columns: 1fr; text-align: center; }
-      .hero-photo { max-width: 360px; margin: 0 auto; aspect-ratio: 4/3; }
+      .hero-photo { aspect-ratio: 3/4; }
       .hero-ornament { margin: 4px auto; }
       .follow-row, .quick-row { justify-content: center; }
     }
