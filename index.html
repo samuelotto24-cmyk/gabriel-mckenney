@@ -96,7 +96,7 @@
       stats: [
         { value: 'OCB',        label: 'Pro'              },
         { value: 'Peak Natty', label: 'Founder'          },
-        { value: '40+',        label: 'Athletes Coached' },
+        { value: '70+',        label: 'Athletes Coached' },
       ],
     },
 
@@ -226,7 +226,7 @@
     // ── Open Graph ────────────────────────────────────────────────────
     og: {
       title:       'Gabe McKenney · Natural Coach for Lifestyle Clients & Competitors',
-      description: 'OCB Pro bodybuilder and founder of Peak Natty. Coaching everyday lifestyle clients and natural competitors to get diced, build stage-ready physiques, and earn their pro cards. 40+ athletes coached.',
+      description: 'OCB Pro bodybuilder and founder of Peak Natty. Coaching everyday lifestyle clients and natural competitors to get diced, build stage-ready physiques, and earn their pro cards. 70+ athletes coached.',
       image:       'https://coachgabemckenney.com/assets/hero.jpg',
       url:         'https://coachgabemckenney.com',
     },
@@ -743,9 +743,11 @@
       .hero-status { margin: 0 auto 14px; }
     }
 
-    /* Single landscape hero photo */
+    /* Side-by-side hero photo pair */
     .hero-photo-stack {
-      display: block;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
     }
 
     .hero-photo {
@@ -759,8 +761,8 @@
       will-change: transform;
     }
 
-    .hero-photo-secondary {
-      display: none;
+    .hero-photo-secondary img {
+      object-position: center 45%;
     }
 
     .hero-photo img {
@@ -2277,10 +2279,10 @@
       </div>
       <div class="hero-photo-stack">
         <div class="hero-photo" id="heroPhoto">
-          <img src="assets/hero-gym.jpg" alt="" id="heroImg" />
+          <img src="assets/hero-gym.jpg" alt="Gabe with his client after earning an OCB Pro Card" id="heroImg" />
         </div>
         <div class="hero-photo hero-photo-secondary" id="heroPhotoSecondary">
-          <img src="assets/hero-comp.jpg" alt="" />
+          <img src="assets/hero-podium.jpg" alt="Gabe with two Peak Natty competitors on the podium" />
         </div>
       </div>
     </div>
@@ -2369,7 +2371,7 @@
 <section id="results-banner">
   <div class="inner results-banner-inner stagger">
     <div class="result-stat fade-up">
-      <span class="result-number">50+</span>
+      <span class="result-number">70+</span>
       <span class="result-desc">Athletes Coached</span>
     </div>
     <div class="result-divider"></div>
@@ -2835,7 +2837,7 @@
         <p class="program-desc">${prog.description}</p>
         ${featuresHtml}
         <div class="program-stats">
-          <div class="program-stat"><span class="program-stat-num">50+</span><span class="program-stat-label">Clients Coached</span></div>
+          <div class="program-stat"><span class="program-stat-num">70+</span><span class="program-stat-label">Clients Coached</span></div>
           <div class="program-stat"><span class="program-stat-num">100%</span><span class="program-stat-label">Natural</span></div>
           <div class="program-stat"><span class="program-stat-num">OCB</span><span class="program-stat-label">Pro</span></div>
         </div>
