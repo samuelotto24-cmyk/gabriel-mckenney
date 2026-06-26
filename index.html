@@ -89,6 +89,7 @@
     // ── Quick Links (icon row below follow buttons) ───────────────────
     quickLinks: [
       { label: 'Coaching',    icon: 'fa-solid fa-dumbbell',  href: '#programs' },
+      { label: 'Shop',        icon: 'fa-solid fa-bag-shopping', href: '#shop' },
       { label: 'Codes',       icon: 'fa-solid fa-tag',       href: '#partners' },
       { label: 'Book a Call', icon: 'fa-solid fa-calendar',  href: 'https://calendly.com/gvmckenney/30min' },
     ],
@@ -186,6 +187,55 @@
         { brand: 'Soar Protein Bars', code: 'GABE', discount: 'Discount applied', href: 'https://soarbars.com',    photo: 'assets/partner-soar.jpg'        },
         { brand: 'Intelligent',      code: 'GABE', discount: 'Discount applied', href: 'https://intelligent.shop', photo: 'assets/partner-intelligent.jpg' },
         { brand: 'DFYNE',            code: 'GABE', discount: 'Discount applied', href: 'https://us.dfyne.com',     photo: 'assets/partner-dfyne.jpg'       },
+      ],
+    },
+
+    // ── Shop (Peak Natty / Shopify) ───────────────────────────────────
+    // Add-to-cart opens the Shopify cart permalink for the chosen size:
+    //   {storeUrl}/cart/{variantId}:1  →  lands on Shopify checkout.
+    // To add a product: copy its variant IDs from {storeUrl}/products.json
+    shop: {
+      enabled:     true,
+      headline:    'Shop Peak Natty',
+      subheadline: 'Official Peak Natty gear. Train in what you preach.',
+      storeUrl:    'https://peaknatty.myshopify.com',
+      items: [
+        {
+          title: 'Peak Natty Compression Black',
+          price: '39.99',
+          image:      'https://cdn.shopify.com/s/files/1/0964/9691/0650/files/Untitleddesign_15.png?v=1782506054',
+          hoverImage: 'https://cdn.shopify.com/s/files/1/0964/9691/0650/files/Untitleddesign_16.png?v=1782506125',
+          sizes: [
+            { label: 'M',   id: 53652660289850 },
+            { label: 'L',   id: 53652660355386 },
+            { label: 'XL',  id: 53652660322618 },
+            { label: '2XL', id: 53652660388154 },
+          ],
+        },
+        {
+          title: 'Peak Natty Compression Blue',
+          price: '39.99',
+          image:      'https://cdn.shopify.com/s/files/1/0964/9691/0650/files/Untitleddesign_430ed18b-8858-4dac-90cd-0b6eca09c44f.jpg?v=1782501889',
+          hoverImage: 'https://cdn.shopify.com/s/files/1/0964/9691/0650/files/Untitled_design_2.jpg?v=1782501908',
+          sizes: [
+            { label: 'M',   id: 53652580598074 },
+            { label: 'L',   id: 53652580630842 },
+            { label: 'XL',  id: 53652580663610 },
+            { label: '2XL', id: 53652580696378 },
+          ],
+        },
+        {
+          title: 'Red Peak Natty Stringer',
+          price: '32.99',
+          image:      'https://cdn.shopify.com/s/files/1/0964/9691/0650/files/PEAK_NATTY_RED_STRINGER_1.png?v=1782361886',
+          hoverImage: 'https://cdn.shopify.com/s/files/1/0964/9691/0650/files/Untitleddesign_13.png?v=1781970189',
+          sizes: [
+            { label: 'M',   id: 53632265781562 },
+            { label: 'L',   id: 53632265814330 },
+            { label: 'XL',  id: 53632265847098 },
+            { label: '2XL', id: 53652677001530 },
+          ],
+        },
       ],
     },
 
@@ -1781,6 +1831,128 @@
     }
     .partner-link:hover { color: var(--accent); }
 
+    /* ============================================================
+       SHOP (Peak Natty / Shopify)
+       ============================================================ */
+    #shop { background: var(--bg); }
+
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      margin-top: 28px;
+    }
+    @media (max-width: 900px) { .shop-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; } }
+    @media (max-width: 540px) { .shop-grid { grid-template-columns: 1fr; } }
+
+    .shop-card {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--r-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow var(--ease), transform var(--ease), border-color var(--ease);
+    }
+    .shop-card:hover {
+      box-shadow: 0 8px 32px rgba(255,255,255,0.14), var(--shadow-md);
+      transform: translateY(-4px);
+      border-color: rgba(255,255,255,0.22);
+    }
+
+    .shop-img-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #fff;
+      overflow: hidden;
+    }
+    .shop-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.4s ease;
+    }
+    .shop-img.shop-img-hover { opacity: 0; }
+    .shop-card:hover .shop-img-hover { opacity: 1; }
+
+    .shop-body {
+      padding: 18px 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+    .shop-title {
+      font-family: var(--display-font);
+      font-size: 22px;
+      line-height: 1.05;
+      color: var(--text);
+    }
+    .shop-price {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+    }
+    .shop-sizes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 2px;
+    }
+    .shop-size {
+      min-width: 42px;
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      background: var(--bg);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      text-align: center;
+      transition: all var(--ease);
+    }
+    .shop-size:hover { border-color: rgba(255,255,255,0.4); color: var(--text); }
+    .shop-size.selected {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+    }
+    .shop-add {
+      margin-top: auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 18px;
+      border: none;
+      border-radius: var(--r-pill);
+      background: var(--accent);
+      color: var(--bg);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform var(--ease), filter var(--ease);
+    }
+    .shop-add:hover { transform: translateY(-2px); filter: brightness(0.92); }
+    .shop-add:active { transform: translateY(0); }
+
+    .shop-viewall {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin: 32px auto 0;
+    }
+
     /* Copy toast */
     .copy-toast {
       position: fixed;
@@ -2366,6 +2538,26 @@
       <span class="callout-quote">"I don't just write programs. I build the best version of you."</span>
       <span class="callout-attr">Gabe McKenney, Founder of Peak Natty</span>
     </div>
+  </div>
+</section>
+
+
+<!-- ─────────────────────────────────────────────────
+     SHOP (Peak Natty / Shopify)
+────────────────────────────────────────────────── -->
+<section id="shop">
+  <div class="inner">
+    <span class="section-label">Peak Natty Apparel</span>
+    <h2 class="section-title" id="shopHeadline">Shop Peak Natty</h2>
+    <p class="section-sub" id="shopSub">Official Peak Natty gear.</p>
+
+    <div class="shop-grid stagger" id="shopGrid">
+      <!-- injected by JS -->
+    </div>
+
+    <a href="https://peaknatty.myshopify.com" class="btn-outline shop-viewall" id="shopViewAll" target="_blank" rel="noopener">
+      <i class="fa-solid fa-bag-shopping"></i> View Full Store
+    </a>
   </div>
 </section>
 
@@ -3026,6 +3218,55 @@
         }).catch(() => {});
       });
       grid.appendChild(card);
+    });
+  }
+
+  /* ── 11b. Shop (Peak Natty / Shopify) ─────────────────────────── */
+  if (!CONFIG.shop || !CONFIG.shop.enabled) {
+    const shopEl = document.getElementById('shop');
+    if (shopEl) shopEl.classList.add('section-hidden');
+  } else {
+    document.getElementById('shopHeadline').textContent = CONFIG.shop.headline;
+    document.getElementById('shopSub').textContent      = CONFIG.shop.subheadline;
+    const viewAll = document.getElementById('shopViewAll');
+    if (viewAll) viewAll.href = CONFIG.shop.storeUrl;
+
+    const shopGrid = document.getElementById('shopGrid');
+    CONFIG.shop.items.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'shop-card fade-up';
+
+      const sizeBtns = item.sizes.map((s, i) =>
+        `<button type="button" class="shop-size${i === 0 ? ' selected' : ''}" data-id="${s.id}">${s.label}</button>`
+      ).join('');
+
+      card.innerHTML = `
+        <div class="shop-img-wrap">
+          <img class="shop-img" src="${item.image}" alt="${item.title}" loading="lazy" />
+          ${item.hoverImage ? `<img class="shop-img shop-img-hover" src="${item.hoverImage}" alt="" loading="lazy" />` : ''}
+        </div>
+        <div class="shop-body">
+          <div class="shop-title">${item.title}</div>
+          <div class="shop-price">$${item.price}</div>
+          <div class="shop-sizes">${sizeBtns}</div>
+          <button type="button" class="shop-add"><i class="fa-solid fa-bag-shopping"></i> Add to Cart</button>
+        </div>`;
+
+      let selectedId = item.sizes[0].id;
+      const sizeEls = card.querySelectorAll('.shop-size');
+      sizeEls.forEach(btn => {
+        btn.addEventListener('click', () => {
+          sizeEls.forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          selectedId = btn.dataset.id;
+        });
+      });
+
+      card.querySelector('.shop-add').addEventListener('click', () => {
+        window.open(`${CONFIG.shop.storeUrl}/cart/${selectedId}:1`, '_blank', 'noopener');
+      });
+
+      shopGrid.appendChild(card);
     });
   }
 
